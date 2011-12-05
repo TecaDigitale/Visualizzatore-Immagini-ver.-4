@@ -1,3 +1,6 @@
 [submodule "GestioneFileMag"]
 	path = GestioneFileMag
 	url = gitosis@redmine.bncf.lan:GestioneFileMag
+[submodule "GestioneXml"]
+	path = GestioneXml
+	url = gitosis@redmine.bncf.lan:GestioneXml
