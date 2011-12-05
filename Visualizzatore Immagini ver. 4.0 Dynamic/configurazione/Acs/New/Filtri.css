@@ -1,0 +1,62 @@
+div.filtri
+{
+	width: 95%;
+    margin:auto;
+	text-align: left;
+	font-size: 12px;
+	border-bottom: 1px solid #575757;
+	margin-left: 11px;
+	margin-right: 0px;
+	margin-top: 1em;
+    padding-top: 20px;
+    padding-right: 23px;
+}
+
+div.filtri a.filtri 
+{
+	font-size: 0.95em;
+	background: url(../images/bkg_menu.gif) no-repeat top right;
+	padding: 10px 10px 6px 10px!important;
+	font-weight: bold;
+	display: inline-block;
+}
+
+div.filtri a.filtri:link
+{
+	color: #fff;
+	text-decoration: none;
+	background: url(../images/menu_vis_bg.jpg) repeat-x;
+}
+
+div.filtri a.filtri:visited
+{
+	color: #fff;
+	text-decoration: none;
+	background-color: #e4e4e4;
+	background: url(../images/menu_vis_bg.jpg) repeat-x;
+}
+
+div.filtri a.filtri:active
+{
+	color: #fff;
+	text-decoration: none;
+	background: url(../images/menu_acv_bg.jpg) repeat-x;
+}
+
+div.filtri a.filtri:hover
+{
+	color: #fff;
+	text-decoration: none;
+	background: url(../images/menu_acv_bg.jpg) repeat-x;
+}
+
+div.filtri a.menuactive
+{
+	font-size: 0.95em;
+	padding: 10px 10px 6px 0px!important;
+	font-family:verdana, arial, san serif;
+	display: inline-block;
+	color: #575757;
+	text-decoration: none;
+	
+}

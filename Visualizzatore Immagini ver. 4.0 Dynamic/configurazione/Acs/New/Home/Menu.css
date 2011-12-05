@@ -1,0 +1,617 @@
+div.menu
+{
+	text-align: left;
+	font-family:verdana, arial, san serif;
+	font-size: 12px;
+	color:#6a6a6a;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 0px;
+	width: 95.5%;
+	height:auto; 
+	min-height: 0px; 
+       margin:auto;
+        padding-top: 0px;
+        background:#CDCDCD;
+}
+
+div.menu a.menu 
+{
+	font-size: 12px;
+	font-family:verdana, arial, san serif;
+	padding: 10px 10px 10px 10px!important;
+	font-weight: bold;
+	display: inline-block;
+	background: url(../../images/sfondomenu.jpg) repeat-x;
+	color: #fff;
+}
+
+div.menu a.menu:link
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+div.menu a.menu:visited
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+div.menu a.menu:active
+{
+	color: #575757;
+	text-decoration: none;
+}
+
+div.menu a.menu:hover
+{
+	color: #575757;
+	text-decoration: none;
+        background:#CDCDCD;
+}
+
+div.menu a.menuactive
+{
+	font-size: 12px;
+	padding: 10px 10px 6px 10px!important;
+	font-weight: bold;
+	display: inline-block;
+	color: #575757;
+	text-decoration: none;
+	font-family:verdana, arial, san serif;
+}
+
+div.subMenu
+{
+    position: inherit;
+    font-family:verdana, arial, san serif;    
+	text-align: left;
+	font-size: 0.95em;
+	background: #575757;
+	width: 95.5%;
+     margin:auto;
+    height:auto;
+}
+
+div.subMenu div.show
+{
+    visibility: visible;
+}
+
+div.subMenu div.hidden
+{
+    visibility: hidden;
+}
+
+table.subMenu
+{
+    width: 99%;
+   margin: 5px 5px 0;
+   background:#D5D5D5;
+   padding-bottom: 10px;
+}
+
+table.subMenu th.campo
+{
+    width: auto;
+    font-size: 12px;
+    text-align: right;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu td.campoCheck
+{
+    font-size: 12px;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu_scheda
+{
+    width: 99%;
+   margin:5px;
+   background:#D5D5D5;
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+table.subMenu_scheda th.campo
+{
+    width: auto;
+    font-size: 12px;
+    text-align: right;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu_scheda td.campoCheck
+{
+    font-size: 12px;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+ul.checkBoxR
+{
+  padding:0px;
+  margin:1px;
+  background-color: #FFFFFF;
+}
+
+ul.checkBoxR li
+{
+  padding:0px;
+ clear:left;
+  display:block;
+  color: #575757;
+}
+
+ul.checkBoxR li a
+{
+  margin:0px;
+  padding:0px;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+ul.checkBoxR li.cbText
+{
+  margin-top:12px;
+  padding:0px;
+  display:block;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+ right:0%; 
+}
+
+ul.checkBox
+{
+  margin:0px;
+  padding:0px;
+}
+
+li
+{
+  list-style:none;
+  display:block;
+  float:left;
+  color: #575757;
+}
+
+ul.checkBox li a
+{
+  margin:0px;
+  padding:0px;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+ul.checkBox li.cbText
+{
+  margin-top:12px;
+  margin-right:5px;
+  padding:0px;
+  display:block;
+  float:left;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+ul.checkBoxM
+{
+  margin:0px;
+  padding-left:80px;
+}
+
+li
+{
+  list-style:none;
+  display:block;
+  float:left;
+}
+
+ul.checkBoxM li a
+{
+  margin:0px;
+  padding:0px;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+ul.checkBoxM li.cbText
+{
+  margin-top:12px;
+  margin-right:5px;
+  padding:0px;
+  display:block;
+  float:left;
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+td.campo
+{
+ margin:0px;
+ padding:0px;
+}
+
+p.checkBox
+{
+  margin-bottom:50px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+	font-weight: bold;
+}
+
+
+table.button
+{
+    width: 99%;
+    background-color: #D5D5D5;
+    margin: auto;
+    padding: 0;
+}
+
+table.button th input 
+{
+	padding: 2px 10px 2px 10px!important;
+	height: auto!important; min-height: 25px; height: 25px;
+}
+
+table.button th input.button
+{
+    color: #1F3D79;
+    border: 1px solid #6F83B3;
+    background-color: #f7f7f7;
+    font-size: 0.9em;
+    padding: 2px 4px 3px 4px!important;
+}
+
+table.button th.sinistra
+{
+    text-align: right;
+}
+
+table.button th.destra
+{
+    text-align: left;
+}
+
+table.subMenu table.button
+{
+    padding-top: 20px;
+    width: 100%;
+}
+
+table.subMenu table.button th input 
+{
+	padding: 2px 10px 2px 10px!important;
+	height: auto!important; min-height: 25px; height: 25px;
+}
+
+table.subMenu input, checkbox
+{
+	color: #25527B;
+	font-weight: bold;
+   height: auto!important; min-height: 20px; height: 20px;
+	margin-right: 5px;
+	font-size: 0.75em;
+	border:2px solid #D4FD69;
+	margin-top:10px;
+}
+
+table.subMenu select 
+{
+	border:2px solid #D4FD69;
+	color: #25527B;
+	font-weight: bold;
+   height: auto!important; min-height: 20px; height: 20px;
+	margin-right: 5px;
+	font-size: 0.75em;
+	margin-top:10px;
+}
+
+table.subMenu_scheda input, checkbox
+{
+	color: #25527B;
+	font-weight: bold;
+   height: auto!important; min-height: 20px; height: 20px;
+	margin-right: 5px;
+	font-size: 0.75em;
+	border:2px solid #D4FD69;
+	margin-top:10px;
+}
+
+table.subMenu_scheda select 
+{
+	border:2px solid #D4FD69;
+	color: #25527B;
+	font-weight: bold;
+   height: auto!important; min-height: 20px; height: 20px;
+	margin-right: 5px;
+	font-size: 0.75em;
+	margin-top:10px;
+}
+
+table.subMenu table.button th input.button
+{
+    color: #1F3D79;
+    border: 1px solid #6F83B3;
+    background-color: #f7f7f7;
+    font-size: 0.9em;
+    padding: 2px 4px 3px 4px!important;
+}
+
+table.subMenu table.button th.sinistra
+{
+    text-align: right;
+}
+
+table.subMenu table.button th.destra
+{
+    text-align: left;
+}
+
+table.menuBase
+{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 20px;
+    margin-bottom:30px;
+}
+
+tr.alfa
+{
+  margin-top:30px;
+
+}
+
+tr.veg
+{
+  margin-bottom:30px;
+
+}
+
+table.menuBase th
+{
+    width: auto;
+    font-size: 12px;
+    text-align: center;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.menuBase td
+{
+    width: auto;
+    font-size: 12px;
+    text-align: right;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu td.campo table.menuBase td.campo
+{
+  text-align:center;
+}
+
+div.menu_base_top
+{
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+div.menu_base_iconologica
+{
+   background-color: #D5D5D5;
+   width: 99%;
+   margin-left: 5px !important;
+   height: auto;
+   padding-bottom: 10px;
+}
+
+div.menu_base_iconologica_title
+{
+   background-color: #D5D5D5;
+   color: #575757;
+   width: 99%;
+   margin-left: 5px !important;
+   height: auto;
+   padding-bottom: 10px;
+   padding-top: 10px;
+}
+
+div.menu_base_iconologica
+{
+   padding-top: 10px;
+}
+
+div.menu_base_scheda_title
+{
+   background-color: #D5D5D5;
+   color: #575757;
+   width: 99%;
+   margin: 0px;
+   margin-left: 5px;
+}
+
+div.things
+{
+  float:left;
+  height:100px;
+  width:220px;
+  margin:0px;
+  margin-left: 10px;
+  padding:0px;
+  font-size:12px;
+  font-family:verdana, arial, san serif;
+}
+
+div.box-inner
+{
+  overflow:auto;
+  height:80px;
+  margin:0px;
+  padding:0px;
+}
+
+div.space
+{
+  width:170px;
+  float:left;
+  height:100px;
+  margin-left: 20px;
+  padding:0px;
+  font-size:12px;
+  font-family:verdana, arial, san serif;
+  color:#;
+}
+
+div.alfabetico
+{
+  width:170px;
+  float:left;
+  height:100px;
+  margin-left: 20px;
+  padding:0px;
+  font-size:12px;
+  font-family:verdana, arial, san serif;
+  color:#;
+}
+
+div.vegetali
+{
+  width:90px;
+  float:left;
+  height:100px;
+  margin-left: 20px;
+  padding:0px;
+  font-size:12px;
+  font-family:verdana, arial, san serif;
+  color:#;
+}
+
+div.persone
+{
+  width:170px;
+  float:left;
+  height:100px;
+  margin-left: 20px;
+  padding:0px;
+  font-size:12px;
+  font-family:verdana, arial, san serif;
+  color:#;
+}
+
+h1
+{
+  font-family:verdana, arial, san serif;
+  font-size:12px;
+  color: #575757;
+}
+
+h1.iconologia
+{
+  margin: 0px;
+  margin-left: 7px;
+  margin-bottom: 5px;
+    
+}
+h1.scroll
+{
+  margin-left: 7px;
+}
+h1.menu
+{
+  font-family:verdana, arial, san serif;
+  font-size:12px;
+  margin-top: 0px;
+  margin-left: 7px;
+  color: #575757;
+}
+
+h1.menu a
+{
+  margin:0px;
+  padding:0px;
+  font-size: 12px;
+  font-family:verdana, arial, san serif;
+  color: #575757;
+}
+
+div.menu_base_button
+{
+   background-color: #D5D5D5;
+   width: 99%;
+   border: solid 5px;
+   border-top: 0px;
+   border-color: #575757;
+   height: 40px;
+   padding-top: 5px;
+   left: 0px;
+  text-align:center;  
+}
+
+div.hidden
+{
+    height: 0px;
+}
+
+
+table.subMenu_libera
+{
+    width: 99%;
+   margin: 5px;
+   background:#D5D5D5;
+   padding-bottom: 10px;
+}
+
+table.subMenu_libera th.campo
+{
+    width: auto;
+    font-size: 12px;
+    text-align: right;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu_libera td.campoCheck
+{
+    font-size: 12px;
+    padding-top:10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.subMenu_libera input, checkbox
+{
+	color: #25527B;
+	font-weight: bold;
+   height: auto!important; min-height: 20px; height: 20px;
+	margin-right: 5px;
+	font-size: 0.75em;
+	border:2px solid #D4FD69;
+	margin-top:10px;
+}
+
+table.subMenu_libera tr.paroleChiave
+{
+    height: 50px;
+    vertical-align: top;
+}

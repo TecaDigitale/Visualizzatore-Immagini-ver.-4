@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Visualizzatore Immagini ver. 4.0 static">
+        <wb-resource deploy-path="/" source-path="/ImageViewer"/>
+        <property name="context-root" value="ImageViewer"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,67 @@
+div.back
+{
+    margin-left: 24px;
+}
+table.scheda
+{
+    width: 95%;
+    background-color:#D5D5D5;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    border-spacing: inherit;
+}
+
+table.scheda tr
+{
+}
+
+table.scheda th
+{
+    font-size: 12px;
+    text-align: left;
+    padding: 10px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+
+table.scheda th.separatore
+{
+    font-size: 0px;
+    height: 0.1px;
+    padding-right: 0px;
+}
+
+table.scheda th.titolo
+{
+    margin: inherit;
+    color: #fff;
+    font-size: 12px;
+    font-family: verdana, arial, san serif;
+    font-weight: bold;
+    text-align: left;
+    padding: 5px 10px 5px 10px;
+    background:#575757;
+}
+
+table.scheda td
+{
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+.testo
+{
+    font-size: 12px;
+    font-family:verdana, arial, san serif;
+    color:#575757;
+}
+   
+.multiTree
+{
+   width:95.8%;
+   border:2px solid #d4fd69;
+   margin:10px auto 10px 2px;
+   padding:0px;
+}

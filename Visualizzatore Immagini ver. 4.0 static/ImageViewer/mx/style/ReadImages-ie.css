@@ -1,0 +1,5 @@
+#BRcontainer {
+    height: 200px;
+    border: solid 1px;
+}
+.clear { clear:both; height:0px;}

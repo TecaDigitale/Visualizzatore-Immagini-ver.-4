@@ -1,0 +1,57 @@
+table.navigatore
+{
+  margin: 5px auto auto 0px;
+  padding: 0px;
+  width: 99%;
+  border-spacing: 0px; 
+}
+
+table.navigatore th.pagina
+{
+  padding: 5px 2px 0px 3px;
+  margin:0px;
+	font-family: Verdana;
+	font-size: 11px;
+  font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+}
+
+table.navigatore td.pagina
+{
+	font-family: Verdana;
+	font-size: 11px;
+  font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	padding: 5px 2px 0px 0px;
+	margin:0px;
+	
+}
+
+table.navigatore td.risultato
+{
+	font-family: Verdana;
+	font-size: 13px;
+  font-weight: normal;
+	text-align: right;
+	vertical-align: middle;
+}
+
+table.navigatore input.navigatore 
+{
+  margin: 0px;
+  padding: 0px;
+  font-family: Verdana;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  background-color: #e4e4e4;
+  border: 0px solid #00FF00;
+  vertical-align: middle;
+}
+
+table.navigatore input.navigatore:hover
+{
+  cursor: pointer;
+}

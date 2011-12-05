@@ -1,0 +1,33 @@
+div#wait
+{
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  font-weight: bold;
+  right: 0%;
+}
+
+div#BookReader
+{
+     left:10px;
+     right:10px;
+     top:125px;
+     bottom:10px;
+}
+
+#BRtoolbar
+{
+  background-color: #575757;
+}
+
+#BRtoolbar .label
+{
+  color:#FFFFFF;
+  font-family: Verdana, Arial, San Serif;
+}
+
+a.BRblack
+{
+  color:#FFFFFF;
+  font-family: Verdana, Arial, San Serif;
+}

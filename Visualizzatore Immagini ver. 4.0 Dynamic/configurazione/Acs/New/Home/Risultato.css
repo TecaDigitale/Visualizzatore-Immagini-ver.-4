@@ -1,0 +1,78 @@
+div.risultato
+{
+
+    background-color:#575757;
+    width: 95.5%;
+    padding: 0;
+    margin: auto;
+    margin-top: 5px;
+}
+
+div.titolo
+{
+    padding: 0;
+    margin: auto;
+}
+
+div.valori
+{
+    margin: 0;
+    padding: 0;
+}
+div.valori h1.titolo
+{
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    font-family:verdana, arial, san serif;
+    text-align: left;
+    margin: 0;
+    padding: 5px 0 5px 10px;
+}
+div.nav
+{
+    background:#D5D5D5;
+    margin:0px;
+ }   
+table.risultato
+{
+    width: 95%;
+    margin: auto;
+}
+
+table.risultato th
+{
+    font-family:verdana, arial, san serif;
+    font-size: 14px;
+}
+
+table.risultato th.icona
+{
+    width: 25px;
+}
+
+table.risultato th.stagione
+{
+    width: 80px;
+}
+
+table.risultato td
+{
+    font-family:verdana, arial, san serif;
+    font-size: 13px;
+}
+
+table.risultato td.icona
+{
+    text-align: center;
+}
+
+table.risultato td.stagione
+{
+    text-align: center;
+}
+
+table.risultato
+{
+    margin: auto;
+}

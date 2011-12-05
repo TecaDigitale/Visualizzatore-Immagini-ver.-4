@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.imageViewer.mx/schema/gestionePagina"
+    xmlns="http://www.imageViewer.mx/schema/gestionePagina">
+
+    <xs:element name="imageViewer">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="titolo" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Titolo della pagina html</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="idr" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Identificativo dell'opera da visualizzare</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="showNavigatore" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

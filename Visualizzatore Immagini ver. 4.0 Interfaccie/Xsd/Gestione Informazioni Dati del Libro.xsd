@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.imageViewer.mx/schema/gestioneLibro"
+    xmlns="http://www.imageViewer.mx/schema/gestioneLibro">
+
+    <xs:element name="readBook">
+        <xs:annotation>
+            <xs:documentation xml:lang="it">Oggetto viene utilizzato per indicare le informazione del 
+materiale da visualizzare</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="datiBibliografici"/>
+                <xs:element ref="immagini"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="stru"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="datiBibliografici">
+        <xs:annotation>
+            <xs:documentation xml:lang="it">Oggetto utilizzato per indare le informazioni relative hai dati 
+Bibliografici del materiale da visualizzare</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="autore" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Autore principale dell'opera Bibliografica</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="titolo" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Titolo princilare dell'opera Bibliografica</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="urlDatiBibliografici" type="xs:anyURI">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Url per la visualizzazione della Scheda Bibliografica completa
+dell'opera</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="pubblicazione" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Descrizione della pubblicazione dell'opera</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="unitaFisica">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Unità fisica dell'opera periodica o multi volume</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="immagini">
+        <xs:annotation>
+            <xs:documentation xml:lang="it">Oggetto utilizzato per raccogliere la lista delle immagini da 
+visualizzare</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="immagine">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Informazioni relative all'immagine da visualizzare</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="nomenclatura">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="it">Nomenclatura dell'immagine da visualizzare</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="altezza" type="xs:int">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="it">Altezza dell'immagine da visualizzare</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="larghezza" type="xs:int">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="it">Larghezza dell'immagine da visualizzare</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="it">Identificativo della risorsa da utilizzare per la 
+visualizzazione dell'immagine</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute ref="sequenza"/>
+                        <xs:attribute name="visPaginaDoppia" type="xs:boolean">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="it">Indica se visualizzare l'immagine nella pagina doppia</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="numImg" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation xml:lang="it">Indica il numero delle immagini da visualizzare</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute default="false" name="isCostola" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="it">Indica se + presente la costola del libro nella prima pagina</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="stru">
+        <xs:annotation>
+            <xs:documentation xml:lang="it">Informazioni relative alla struttura dell'opera</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="nomenclatura">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Nomenclatura della struttura da visualizzare</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:choice>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" ref="stru"/>
+                    <xs:element minOccurs="0" name="immagine">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="it">Informazioni relative alla prima pagina da visualizzare</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:attribute ref="sequenza"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="nomenclatura" type="xs:string"/>
+    <xs:attribute name="sequenza" type="xs:int">
+        <xs:annotation>
+            <xs:documentation xml:lang="it">Indica a sequenza della pagina</xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+</xs:schema>
