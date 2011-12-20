@@ -1,0 +1,11 @@
+body { 
+	font: 70.5% "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif; 
+	margin:10px;
+}
+
+.uim_attr{
+	font-style:italic;
+}
+.uim_attr a{
+	color: blue !important;
+}

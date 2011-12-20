@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.imageViewer.mx/schema/gestioneOpera"
+  xmlns="http://www.imageViewer.mx/schema/gestioneOpera">
+  <xs:element name="opera">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="libro"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="libro">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="volume"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="libro"/>
+      </xs:choice>
+      <xs:attribute name="autore" use="required" type="xs:string"/>
+      <xs:attribute name="genere" use="required" type="xs:string"/>
+      <xs:attribute ref="href"/>
+      <xs:attribute name="titolo" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="volume">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="href"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attribute name="href" type="xs:anyURI"/>
+</xs:schema>

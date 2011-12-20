@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<opera>
+	<libro titolo="La Parodi" autore="Anonimo" genere="Fantasy">
+		<volume href="http://www.hotmail.com/">volume 1</volume>
+		<volume href="javascript:parent.initBook('BNCF0000483368');">volume 2</volume>
+	</libro>
+	<libro titolo="Ciaoooo" autore="Anonimo" genere="Fantasy" href="http://www.google.it/">
+	</libro>
+	<libro titolo="pippo">
+		<libro titolo="1900">
+			<volume href="javascript:alert('BNCF0000483368');">2133</volume>
+		</libro>
+	</libro>
+</opera>

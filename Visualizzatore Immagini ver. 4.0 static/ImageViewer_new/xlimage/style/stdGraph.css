@@ -1,0 +1,31 @@
+div.pagine {
+    float: left;
+    height: 52px;
+    max-width: 224px;
+    min-height: 52px;
+    min-width: 124px;
+    width: 224px;
+}
+
+div.paginaShow {
+    float: left;
+    min-height: 52px;
+    min-width: 20px;
+    width: 20px;
+}
+
+div.viewer {
+    border: 1px solid;
+    float: left;
+}
+
+element.style {
+    height: 453px;
+    width: 1176px;
+}
+
+div.center {
+    border: 2px none;
+    float: left;
+    width: 100%;
+}
