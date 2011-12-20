@@ -84,12 +84,6 @@
         <dependent-module archiveName="Visualizzatore_Immagini_ver._4.0_Acs.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Acs/Visualizzatore Immagini ver. 4.0 Acs">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/media/jai_core.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/com/sun/media/jai/code/jai_codec.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="San_Carlo_Napoli_Modulo_Lucene.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/San Carlo Napoli Modulo Lucene/San Carlo Napoli Modulo Lucene">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -106,6 +100,12 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/magick/jmagick-6.4.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/media/jai_core.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/com/sun/media/jai/code/jai_codec.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="ImageViewer"/>

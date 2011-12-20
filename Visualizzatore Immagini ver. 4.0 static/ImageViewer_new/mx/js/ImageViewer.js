@@ -137,7 +137,7 @@ ImageViewer.method('_getPageFile', function(index)
 });
 
 /**
- * Questo metodo viene utilizzato per indicare se l'immagine è da 
+ * Questo metodo viene utilizzato per indicare se l'immagine ÔøΩ da 
  * visualizzare sul lato destro o sinistro quando sono affinacate
  */
 ImageViewer.method('getPageSide', function(index)
@@ -155,7 +155,7 @@ ImageViewer.method('getPageSide', function(index)
 });
 
 /**
- * Questo metodo viene utilizzato per indicare se l'immagine è da 
+ * Questo metodo viene utilizzato per indicare se l'immagine ÔøΩ da 
  * visualizzare sul lato destro o sinistro quando sono affinacate
  */
 ImageViewer.method('canRotatePage', function(index)
@@ -179,8 +179,8 @@ ImageViewer.method('getPageNum', function(index)
 /**
  * Questa funzione restituisce gli indici a sinistra ea destra per la 
  * diffusione visibile all'utente che contiene il dato indice. I valori 
- * di ritorno può essere null se non esiste una pagina di fronte o 
- * l'indice non è valido.
+ * di ritorno puÔøΩ essere null se non esiste una pagina di fronte o 
+ * l'indice non ÔøΩ valido.
  */
 ImageViewer.method('getSpreadIndices',function(pindex) 
 {
@@ -241,7 +241,7 @@ ImageViewer.method('getPageName', function(index)
     }
   }
 
-  return immagine.getElementsByTagName("mx-libro:nomenclatura")[0].childNodes[0].nodeValue;
+  return immagine.getElementsByTagName(prefixXml+"nomenclatura")[0].childNodes[0].nodeValue;
 });
 
 /**
@@ -306,7 +306,7 @@ ImageViewer.method('initImg', function(mode)
 
     this.init();
 //	this.uber('init');
-alert("5");
+//alert("5");
 });
 
 /**
@@ -330,17 +330,17 @@ ImageViewer.method('switchToolbarModeMy', function(mode)
 });
 
 /**
- * Metodo utilizzato per indicare se è presente la costola del libro 
+ * Metodo utilizzato per indicare se ÔøΩ presente la costola del libro 
  *
  */
 ImageViewer.method('isCostola', function() 
 {
   var isCostola = false;
 
-  readBook = tracciatoXml.getElementsByTagName("mx-libro:readBook")[0];
+  readBook = tracciatoXml.getElementsByTagName(prefixXml+"readBook")[0];
   if (readBook != null)
   {
-    immagini = readBook.getElementsByTagName("mx-libro:immagini")[0];
+    immagini = readBook.getElementsByTagName(prefixXml+"immagini")[0];
     if (immagini != null)
     {
       if (immagini.attributes != null)
@@ -365,17 +365,17 @@ ImageViewer.method('isCostola', function()
 });
 
 /**
- * Metodo utilizzato per indicare se è presente la costola del libro 
+ * Metodo utilizzato per indicare se ÔøΩ presente la costola del libro 
  *
  */
 ImageViewer.method('imgTot', function() 
 {
   var numImg = 0;
 
-  readBook = tracciatoXml.getElementsByTagName("mx-libro:readBook")[0];
+  readBook = tracciatoXml.getElementsByTagName(prefixXml+"readBook")[0];
   if (readBook != null)
   {
-    immagini = readBook.getElementsByTagName("mx-libro:immagini")[0];
+    immagini = readBook.getElementsByTagName(prefixXml+"immagini")[0];
     if (immagini != null)
     {
       if (immagini.attributes != null)
@@ -398,10 +398,10 @@ ImageViewer.method('getImmagine', function(posizione)
 {
   var immagine;
 
-  readBook=tracciatoXml.getElementsByTagName("mx-libro:readBook")[0];
+  readBook=tracciatoXml.getElementsByTagName(prefixXml+"readBook")[0];
   if (readBook != null)
   {
-    immagini=readBook.getElementsByTagName("mx-libro:immagini")[0];
+    immagini=readBook.getElementsByTagName(prefixXml+"immagini")[0];
     if (immagini != null)
     {
       if (immagini.getElementsByTagName("immagine")[0] != null)

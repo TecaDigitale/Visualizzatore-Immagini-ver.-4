@@ -53,7 +53,22 @@
             <param name="LevelMax" value="FATAL"/>
         </filter>
     </appender>
-
+    <appender name="EMAIL"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512" />
+        <param name="SMTPHost" value="mail.bncf.firenze.sbn.it" />
+        <param name="From" value="no-replay@bncf.firenze.sbn.it" />
+        <param name="To" value="massimiliano.randazzo@gmail.com" />
+        <param name="Subject" value="Visualizzatore Immagini ver 4.0" />
+        <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern"
+        value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+        <param name="LevelMin" value="ERROR"/>
+        <param name="LevelMax" value="FATAL"/>
+        </filter>
+   </appender>
+    
     <category name="mx.imageViewer.servlet">
         <level value="WARN" />
         <appender-ref ref="STDOUT"/>
@@ -89,20 +104,8 @@
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="STDERR"/>
     </category>
-    <category name="mx.imageViewer.imager">
-        <level value="WARN"/>
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="STDERR"/>
-    </category>
-    <category name="it.siav.sanCarlo.database.lucene.search">
-        <level value="WARN"/>
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="STDERR"/>
-    </category>
-    
-    <category name="mx.lucene">
-        <level value="WARN"/>
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="STDERR"/>
-    </category>
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="EMAIL"/>
+    </root>
 </log4j:configuration>

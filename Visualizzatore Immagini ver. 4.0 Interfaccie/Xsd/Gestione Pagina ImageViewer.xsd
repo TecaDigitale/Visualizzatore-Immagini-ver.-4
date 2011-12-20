@@ -16,7 +16,77 @@
                         <xs:documentation xml:lang="it">Identificativo dell'opera da visualizzare</xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="showNavigatore" type="xs:boolean"/>
+                <xs:element name="showNavigatore" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Indica se è presente più di una opera collegata</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:boolean">
+                                <xs:attribute name="idr" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="it">Indica l'identificativo della risorsa relativa alla collezione</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="msgError" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Oggetto utilizzato per la definizione del messaggio di Errore</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="xlimage">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="it">Oggetto utilizzato per indicare le immagini sono delle carte 
+gioegrafiche che devono essere visualizzare con il programma 
+xlimage</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="pagina">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="it">Oggetto utilizzato per definire la singola pagina della 
+carta geografica</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="urlPage" type="xs:anyURI"
+                                                use="required">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="it">Url che viene richiamato attraverdo il javascript indicato 
+nell'attributo link</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="link" type="xs:string"
+                                                use="required">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="it">Viene utilizzato per indicare il javascript da utilizzare per
+cambiare la pagina da visualizzare 
+(default: "javascript:changeImg('0');")</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="key" type="xs:string" use="required">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="it">Indica la chiave associato alla pagina</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                            <xs:attribute name="keyPadre" type="xs:string"
+                                                use="required">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="it">Indica la chiave padre a cui è associata la pagina</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="titolo" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

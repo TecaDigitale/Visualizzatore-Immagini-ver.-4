@@ -48,12 +48,12 @@ Function.method('inherits', function (parent)
         else
         {
             f = p[name];
-            alert("f: "+f);
+//            alert("f: "+f);
             if (f==this[name])
             {
                 f = v[name];
             }
-            alert("f: "+f);
+//            alert("f: "+f);
         }
         d[name] += 1;
         try
@@ -66,11 +66,11 @@ Function.method('inherits', function (parent)
 	    for(var i = 1; i < arguments.length; i++) {
 	      a.push(arguments[i]);
 	    }
-	    alert(a);
+//	    alert(a);
     	f.apply(this, arguments);
            alert(e.description);
         }
-	alert("4");
+//	    alert("4");
         d[name] -= 1;
         return r;
     });

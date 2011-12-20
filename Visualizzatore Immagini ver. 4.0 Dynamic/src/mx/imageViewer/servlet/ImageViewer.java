@@ -17,6 +17,7 @@ import mx.configuration.Configuration;
 import mx.converter.ConverterXsl;
 import mx.converter.exception.ConvertXslException;
 import mx.imageviewer.schema.gestionelibro.ReadBook;
+import mx.imageviewer.schema.gestioneopera.Opera;
 import mx.imageviewer.servlet.interfacie.IImageViewer;
 import mx.imageviewer.servlet.interfacie.manifestPrefix.ImageViewerNamespacePrefixMapper;
 import mx.log4j.Logger;
@@ -124,6 +125,7 @@ public class ImageViewer extends HttpServlet implements Servlet {
 			throws ServletException, IOException {
 		mx.imageviewer.schema.gestionepagina.ImageViewer imgViewer = null;
 		ReadBook readBook = null;
+		Opera opera= null;
 		IImageViewer imageViewer = null;
 		Class myClass = null;
 		String metodo = "";
@@ -162,10 +164,7 @@ public class ImageViewer extends HttpServlet implements Servlet {
 						response.setContentType("text/html; charset=UTF-8");
 						response.setCharacterEncoding("UTF-8");
 
-						fileXsl = (String) Configuration.listaParametri.get(
-								"imageViewer." + request.getServerName()
-										+ ".xsl", Configuration.listaParametri
-										.get("imageViewer.ALL.xsl", ""));
+						fileXsl = imageViewer.getFoglioXsl(request.getServerName());
 						ConverterXsl
 								.convertXsl(
 										fileXsl,
@@ -185,6 +184,17 @@ public class ImageViewer extends HttpServlet implements Servlet {
 						response.setCharacterEncoding("UTF-8");
 						GestioneXsd.write(readBook, response.getOutputStream(),
 								new ImageViewerNamespacePrefixMapper());
+					} else
+						throw new ServletException(
+								"Non risulta essere presente le informazioni del libro");
+				} else if (azione.equals("readCatalogo")) {
+					opera = imageViewer.readCatalogo(request, response);
+
+					if (opera != null) {
+						response.setContentType("text/xml; charset=UTF-8");
+						response.setCharacterEncoding("UTF-8");
+						GestioneXsd.write(opera, response.getOutputStream());
+						System.out.println(GestioneXsd.writeXml(opera));
 					} else
 						throw new ServletException(
 								"Non risulta essere presente le informazioni del libro");

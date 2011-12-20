@@ -15,6 +15,8 @@ import mx.imageviewer.schema.gestionelibro.Immagini;
 import mx.imageviewer.schema.gestionelibro.Immagini.Immagine;
 import mx.log4j.Logger;
 import mx.teca.archivi.arsbni.view.ViewListaIdrImg;
+import mx.teca.archivi.arsbni.view.ViewListaImg;
+import mx.teca.archivi.arsbni.view.ViewTbllegnotTblris;
 
 /**
  * @author massi
@@ -43,7 +45,7 @@ public class ReadBook
 
 	public mx.imageviewer.schema.gestionelibro.ReadBook esegui(String risIdr, String usage)
 	{
-		ViewListaIdrImg view = null;
+		ViewListaImg view = null;
 		ResultSet rs = null;
 		mx.imageviewer.schema.gestionelibro.ReadBook readBook = null;
 		Immagini immagini = null;
@@ -52,20 +54,20 @@ public class ReadBook
 		
 		try
 		{
-			view = new ViewListaIdrImg(Configuration.getPool("teca"));
-			view.setCampoValue("risIdr", risIdr);
+			view = new ViewListaImg(Configuration.getPool("teca"));
+			view.setCampoValue("relrisidr", risIdr);
 			view.setCampoValue("ImgUsage", usage);
-			view.getCampo("RelRisSequenza").setOrderBy(Column.ORDERBY_CRES, 1);
+			view.getCampo("seq").setOrderBy(Column.ORDERBY_CRES, 1);
 			rs = view.startSelect();
 
+			readBook = new mx.imageviewer.schema.gestionelibro.ReadBook();
 			if (view.getRecTot()>0)
 			{
 				while(rs.next())
 				{
-					if (readBook == null)
+					if (readBook.getDatiBibliografici() == null)
 					{
-						readBook = new mx.imageviewer.schema.gestionelibro.ReadBook();
-						readBook.setDatiBibliografici(initDatiBibliografici(rs));
+						readBook.setDatiBibliografici(initDatiBibliografici(risIdr));
 					}
 					if (immagini == null)
 					{
@@ -73,7 +75,7 @@ public class ReadBook
 						immagini.setNumImg(view.getRecTot());
 						immagini.setIsCostola(false);
 					}
-					if (rs.getString("risNotaPub").toLowerCase().contains("costola"))
+					if (rs.getString("nota").toLowerCase().contains("costola"))
 						immagini.setIsCostola(true);
 
 					imgLength = (rs.getInt("imgLength")==0?800:rs.getInt("imgLength"));
@@ -82,23 +84,34 @@ public class ReadBook
   					immagini.getImmagine().add(
   							addImmagine(
   									rs.getString("RelRisIdrPartenza"), 
-  									rs.getInt("RelRisSequenza"), 
-  									rs.getString("risNotaPub").toLowerCase().contains("costola"), 
-  									rs.getString("risNotaPub"), 
+  									rs.getInt("seq"), 
+  									rs.getString("nota").toLowerCase().contains("costola"), 
+  									rs.getString("nota"), 
   									imgLength, 
   									imgWidth));
 					else
 						immagini.getImmagine().add(
 								addImmagine(
 										rs.getString("RelRisIdrPartenza"), 
-										rs.getInt("RelRisSequenza"), 
-										rs.getString("risNotaPub").toLowerCase().contains("costola"), 
-										rs.getString("risNotaPub"), 
+										rs.getInt("seq"), 
+										rs.getString("nota").toLowerCase().contains("costola"), 
+										rs.getString("nota"), 
 										imgWidth, 
 										imgLength));
 				}
 				if (immagini != null)
 					readBook.setImmagini(immagini);
+			}else{
+				try {
+					int iUsage =0;
+					iUsage = Integer.valueOf(usage).intValue();
+					if (iUsage>1){
+						iUsage--;
+						usage = Integer.toString(iUsage);
+						readBook = esegui(risIdr, usage);
+					}
+				} catch (NumberFormatException e) {
+				}
 			}
 		}
 		catch (SQLException e)
@@ -154,28 +167,34 @@ public class ReadBook
 	 * @return
 	 * @throws SQLException
 	 */
-	private DatiBibliografici initDatiBibliografici(ResultSet rs) throws SQLException
+	private DatiBibliografici initDatiBibliografici(String risidr) throws SQLException
 	{
 		DatiBibliografici datiBibliografici = null;
 		String urlDatiBibliografici = null;
 		int pos = 0;
 		String key = "";
+		ResultSet rs = null;
+		ViewTbllegnotTblris view = null;
 
 		try
 		{
+			view = new ViewTbllegnotTblris(Configuration.getPool("teca"));
+			view.setCampoValue("risidr", risidr);
+			rs = view.startSelect();
 			datiBibliografici = new DatiBibliografici();
 
-			if (rs.getString("tmpAutore") != null && 
-					!rs.getString("tmpAutore").trim().equals(""))
-				datiBibliografici.setAutore(rs.getString("tmpAutore").trim());
+			if (rs.next()){
+			if (rs.getString("autore") != null && 
+					!rs.getString("autore").trim().equals(""))
+				datiBibliografici.setAutore(rs.getString("autore").trim());
 
-			if (rs.getString("tmpTitolo") != null && 
-					!rs.getString("tmpTitolo").trim().equals(""))
-				datiBibliografici.setTitolo(rs.getString("tmpTitolo").trim());
+			if (rs.getString("titolo") != null && 
+					!rs.getString("titolo").trim().equals(""))
+				datiBibliografici.setTitolo(rs.getString("titolo").trim());
 
-			if (rs.getString("tmpNotePubblicazione") != null && 
-					!rs.getString("tmpNotePubblicazione").trim().equals(""))
-				datiBibliografici.setPubblicazione(rs.getString("tmpNotePubblicazione").trim());
+			if (rs.getString("notePubblicazione") != null && 
+					!rs.getString("notePubblicazione").trim().equals(""))
+				datiBibliografici.setPubblicazione(rs.getString("notePubblicazione").trim());
 
 			if ((rs.getString("pieceGr") != null && 
 					!rs.getString("pieceGr").trim().equals("")) &&
@@ -211,11 +230,19 @@ public class ReadBook
 				}
 				datiBibliografici.setUrlDatiBibliografici(urlDatiBibliografici);
 			}
+			}
 		}
 		catch (SQLException e)
 		{
 			log.error(e);
 			throw e;
+		}finally{
+			if (rs != null){
+				rs.close();
+			}
+			if (view != null){
+				view.stopSelect();
+			}
 		}
 
 		return datiBibliografici;

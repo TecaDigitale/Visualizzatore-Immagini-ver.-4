@@ -6,7 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mx.configuration.Configuration;
 import mx.imageviewer.schema.gestionelibro.ReadBook;
+import mx.imageviewer.schema.gestioneopera.Opera;
 import mx.imageviewer.schema.gestionepagina.ImageViewer;
 
 /**
@@ -16,13 +18,13 @@ import mx.imageviewer.schema.gestionepagina.ImageViewer;
  * @author Massimiliano Randazzo
  *
  */
-public interface IImageViewer
+public abstract class IImageViewer
 {
 
 	/**
 	 * Metodo utilizzato per ricavare le informazioni necessarie per 
 	 * disegnare la pagina html che contiene il visualizzatore, l'oggetto XML
-	 * che viene generato verrˆ convertito in HTML tramite un foglio Xls
+	 * che viene generato verrï¿½ convertito in HTML tramite un foglio Xls
 	 * 
 	 * @return
 	 */
@@ -47,4 +49,31 @@ public interface IImageViewer
 	 * @throws IOException
 	 */
 	public abstract ReadBook readBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+	/**
+	 * Metodo utilizzato per reperire le informazioni relative al 
+	 * catalogo da visualizare
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public abstract Opera readCatalogo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+	/**
+	 * Metodo utilizzato per estrarre il foglio di stile da applicare per la generazione della pagina Web
+	 * 
+	 * @param serverName Nome del server Name
+	 * @return
+	 */
+	public String getFoglioXsl(String serverName){
+		String fileXsl = "";
+		fileXsl = (String) Configuration.listaParametri.get(
+				"imageViewer." + serverName
+						+ ".xsl", Configuration.listaParametri
+						.get("imageViewer.ALL.xsl", ""));
+		return fileXsl;
+	}
 }

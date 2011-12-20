@@ -16,5 +16,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Connessioni Ftp"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Socket"/>
 	<classpathentry kind="lib" path="/Librerie Terze Parti Java/com/sun/xml/jaxb-impl-2.1.4.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Configurazioni"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

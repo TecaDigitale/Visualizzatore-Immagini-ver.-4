@@ -35,10 +35,10 @@ function showBook(responseXML, tipoRis)
 //    br = new ImageViewer(1500, 2116, '');
     br = new ImageViewer(tracciatoXml);
 
-    readBook = tracciatoXml.getElementsByTagName("mx-libro:readBook")[0];
+    readBook = tracciatoXml.getElementsByTagName(prefixXml+"readBook")[0];
     if (readBook != null)
     {
-      datiBibliografici = readBook.getElementsByTagName("mx-libro:datiBibliografici")[0];
+      datiBibliografici = readBook.getElementsByTagName(prefixXml+"datiBibliografici")[0];
       if (datiBibliografici != null)
       {
         if (datiBibliografici.getElementsByTagName("autore")[0] != null)
@@ -66,7 +66,7 @@ function showBook(responseXML, tipoRis)
     
       // Visualizzazione del visualizzatore
       br.initImg(2);
-    alert("10");
+//    alert("10");
     }
     else
     {
@@ -75,5 +75,27 @@ function showBook(responseXML, tipoRis)
   }
   document.getElementById('wait').style.display='none';
   startAjax = false;
-  alert("showBook END");
+//  alert("showBook END");
+}
+
+
+function toggle_sidebar() {
+	
+	if($('.sidecol').css('left') == "0px") {
+	
+		$('.sidecol').animate({"left": "-304px"}, {
+			duration: "slow",
+			complete: function() {
+		
+		      $(this).css('box-shadow', 'none');
+			}
+	    });	
+		
+	} else {
+		
+		$('.sidecol').css('box-shadow', '-1px 0 0px #888');
+		$('.sidecol').animate({"left": "0px"}, "slow");
+	}
+	
+	return false;
 }
