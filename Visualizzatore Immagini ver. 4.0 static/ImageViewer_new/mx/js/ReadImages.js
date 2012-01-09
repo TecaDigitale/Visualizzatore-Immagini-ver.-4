@@ -65,7 +65,7 @@ function showBook(responseXML, tipoRis)
       //			br.setTitleLeaf(11);
     
       // Visualizzazione del visualizzatore
-      br.initImg(2);
+      br.initImg(1);
 //    alert("10");
     }
     else

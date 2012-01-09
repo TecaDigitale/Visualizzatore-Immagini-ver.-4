@@ -47,7 +47,11 @@ ImageViewer.method('getPageWidth', function(index)
       immagine = this.getImmagine(index+1);
     }
   }
-  return parseInt(immagine.getElementsByTagName("larghezza")[0].childNodes[0].nodeValue);
+  if (immagine == undefined){
+    return 0;
+  } else {
+    return parseInt(immagine.getElementsByTagName("larghezza")[0].childNodes[0].nodeValue);
+  }
 });
 
 /**
@@ -65,7 +69,11 @@ ImageViewer.method('getPageHeight', function(index)
     }
   }
 
-  return parseInt(immagine.getElementsByTagName("altezza")[0].childNodes[0].nodeValue);
+  if (immagine == undefined){
+    return 0;
+  } else {
+    return parseInt(immagine.getElementsByTagName("altezza")[0].childNodes[0].nodeValue);
+  }
 });
 
 /**
