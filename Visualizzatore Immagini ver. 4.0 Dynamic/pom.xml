@@ -10,6 +10,7 @@
 	</properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <finalName>ImageViewer</finalName>
     <resources>
       <resource>
         <directory>src</directory>

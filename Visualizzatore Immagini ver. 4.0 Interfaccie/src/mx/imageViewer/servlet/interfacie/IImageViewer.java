@@ -25,7 +25,7 @@ public abstract class IImageViewer {
 	/**
 	 * Metodo utilizzato per ricavare le informazioni necessarie per disegnare
 	 * la pagina html che contiene il visualizzatore, l'oggetto XML che viene
-	 * generato verr� convertito in HTML tramite un foglio Xls
+	 * generato verrà convertito in HTML tramite un foglio Xls
 	 * 
 	 * @return
 	 */
