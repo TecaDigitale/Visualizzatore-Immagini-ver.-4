@@ -33,7 +33,6 @@ Function.method('inherits', function (parent)
         {
             d[name] = 0;
         }
-
         var f, r, t = d[name];
         var v = parent.prototype;
 
@@ -49,13 +48,29 @@ Function.method('inherits', function (parent)
         else
         {
             f = p[name];
+//            alert("f: "+f);
             if (f==this[name])
             {
                 f = v[name];
             }
+//            alert("f: "+f);
         }
         d[name] += 1;
-        r = f.apply(this, Array.prototype.slice.apply(arguments, [1]));
+        try
+        {
+          r = f.apply(this, Array.prototype.slice.apply(arguments, [1]));
+        }
+        catch(e)
+        {
+         var a = [];
+	    for(var i = 1; i < arguments.length; i++) {
+	      a.push(arguments[i]);
+	    }
+//	    alert(a);
+    	f.apply(this, arguments);
+           alert(e.description);
+        }
+//	    alert("4");
         d[name] -= 1;
         return r;
     });

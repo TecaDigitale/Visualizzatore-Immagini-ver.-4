@@ -14,14 +14,17 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.PropertyException;
 
 import mx.configuration.Configuration;
-import mx.converter.ConverterXsl;
-import mx.converter.exception.ConvertXslException;
-import mx.imageviewer.schema.gestionelibro.ReadBook;
-import mx.imageviewer.schema.gestioneopera.Opera;
-import mx.imageviewer.servlet.interfacie.IImageViewer;
-import mx.imageviewer.servlet.interfacie.manifestPrefix.ImageViewerNamespacePrefixMapper;
-import mx.log4j.Logger;
-import mx.teca.export.GestioneXsd;
+import mx.imageViewer.schema.ImageViewerXsd;
+import mx.imageViewer.schema.OperaXsd;
+import mx.imageViewer.schema.ReadBookXsd;
+import mx.imageViewer.schema.gestionelibro.ReadBook;
+import mx.imageViewer.schema.gestioneopera.Opera;
+import mx.imageViewer.servlet.interfacie.IImageViewer;
+import mx.imageViewer.servlet.interfacie.manifestPrefix.ImageViewerNamespacePrefixMapper;
+import mx.randalf.converter.xsl.ConverterXsl;
+import mx.randalf.converter.xsl.exception.ConvertXslException;
+
+import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class ImageViewer
@@ -36,7 +39,7 @@ public class ImageViewer extends HttpServlet implements Servlet {
 	/**
 	 * Questa variabile viene utlizzata per loggare l'applicazione
 	 */
-	private Logger log = new Logger(ImageViewer.class, "mx.imageViewer.servlet");
+	private Logger log = Logger.getLogger(ImageViewer.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -120,10 +123,13 @@ public class ImageViewer extends HttpServlet implements Servlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private void esegui(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		mx.imageviewer.schema.gestionepagina.ImageViewer imgViewer = null;
+		ImageViewerXsd imageViewerXsd = null;
+		ReadBookXsd readBookXsd = null;
+		OperaXsd operaXsd = null;
+		mx.imageViewer.schema.gestionepagina.ImageViewer imgViewer = null;
 		ReadBook readBook = null;
 		Opera opera= null;
 		IImageViewer imageViewer = null;
@@ -148,9 +154,9 @@ public class ImageViewer extends HttpServlet implements Servlet {
 				azione = "home";
 			log.debug("azione: " + azione);
 
-			if (!((String) Configuration.listaParametri.get("imageViewer."
+			if (!((String) Configuration.get("imageViewer."
 					+ metodo + ".class", "")).equals("")) {
-				className = (String) Configuration.listaParametri.get(
+				className = (String) Configuration.get(
 						"imageViewer." + metodo + ".class", "");
 				log.debug("className: " + className);
 
@@ -165,13 +171,15 @@ public class ImageViewer extends HttpServlet implements Servlet {
 						response.setCharacterEncoding("UTF-8");
 
 						fileXsl = imageViewer.getFoglioXsl(request.getServerName());
+						imageViewerXsd = new ImageViewerXsd();
 						ConverterXsl
 								.convertXsl(
 										fileXsl,
-										GestioneXsd
-												.writeInputStream(
-														imgViewer,
-														new ImageViewerNamespacePrefixMapper()),
+										imageViewerXsd.writeInputStream(imgViewer, new ImageViewerNamespacePrefixMapper()),
+//										GestioneXsd
+//												.writeInputStream(
+//														imgViewer,
+//														new ImageViewerNamespacePrefixMapper()),
 										response.getOutputStream());
 					} else
 						throw new ServletException(
@@ -182,8 +190,12 @@ public class ImageViewer extends HttpServlet implements Servlet {
 					if (readBook != null) {
 						response.setContentType("text/xml; charset=UTF-8");
 						response.setCharacterEncoding("UTF-8");
-						GestioneXsd.write(readBook, response.getOutputStream(),
-								new ImageViewerNamespacePrefixMapper());
+						readBookXsd = new ReadBookXsd();
+						readBookXsd.write(readBook, response.getOutputStream(), 
+								new ImageViewerNamespacePrefixMapper(), null, 
+								null, null);
+//						GestioneXsd.write(readBook, response.getOutputStream(),
+//								new ImageViewerNamespacePrefixMapper());
 					} else
 						throw new ServletException(
 								"Non risulta essere presente le informazioni del libro");
@@ -193,8 +205,46 @@ public class ImageViewer extends HttpServlet implements Servlet {
 					if (opera != null) {
 						response.setContentType("text/xml; charset=UTF-8");
 						response.setCharacterEncoding("UTF-8");
-						GestioneXsd.write(opera, response.getOutputStream());
-						System.out.println(GestioneXsd.writeXml(opera));
+						operaXsd = new OperaXsd();
+						operaXsd.write(opera, response.getOutputStream(), null, 
+								null, null, null);
+//						GestioneXsd.write(opera, response.getOutputStream());
+					} else
+						throw new ServletException(
+								"Non risulta essere presente le informazioni del libro");
+				} else if (azione.equals("showCatalogo")) {
+					imgViewer = imageViewer.showCatalogo(request, response);
+
+					if (imgViewer != null) {
+						response.setContentType("text/html; charset=UTF-8");
+						response.setCharacterEncoding("UTF-8");
+
+						imageViewerXsd = new ImageViewerXsd();
+						System.out.println(imageViewerXsd.write(imgViewer, null, null, null, null));
+//						System.out.println(GestioneXsd.writeXml(imgViewer));
+						fileXsl = imageViewer.getFoglioXsl(request.getServerName());
+						ConverterXsl
+								.convertXsl(
+										fileXsl,
+										imageViewerXsd.writeInputStream(imgViewer, 
+												new ImageViewerNamespacePrefixMapper()),
+//										GestioneXsd
+//												.writeInputStream(
+//														imgViewer,
+//														new ImageViewerNamespacePrefixMapper()),
+										response.getOutputStream());
+					} else
+						throw new ServletException(
+								"Non risulta essere presente le informazioni del libro");
+				} else if (azione.equals("readStru")) {
+					opera = imageViewer.readStru(request, response);
+
+					if (opera != null) {
+						response.setContentType("text/xml; charset=UTF-8");
+						response.setCharacterEncoding("UTF-8");
+						operaXsd = new OperaXsd();
+						operaXsd.write(opera, response.getOutputStream(), null, null, null, null);
+//						GestioneXsd.write(opera, response.getOutputStream());
 					} else
 						throw new ServletException(
 								"Non risulta essere presente le informazioni del libro");

@@ -1,30 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Visualizzatore Immagini ver. 4.0 Interfaccie"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5">
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
 		<attributes>
-			<attribute name="owner.project.facets" value="jst.utility"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
-			<attribute name="owner.project.facets" value="jst.java"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Librerie Personali"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Teca Digitale Materiale Comune"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Configurazioni"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Gestione Connessioni DataBase"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Modulo Cattura materiale dallo Storage"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Visualizzatore Immagini ver. 4.0 Gestore Immagini"/>
-	<classpathentry kind="lib" path="/Librerie Terze Parti Java/jai/jai 1.1.3 no acc/jai_codec.jar"/>
-	<classpathentry kind="lib" path="/Librerie Terze Parti Java/jai/jai 1.1.3 no acc/jai_core.jar"/>
-	<classpathentry kind="lib" path="/Librerie Terze Parti Java/org/apache/log4j/log4j-1.2.14.jar">
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
-			<attribute name="javadoc_location" value="http://logging.apache.org/log4j/1.2/apidocs/"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

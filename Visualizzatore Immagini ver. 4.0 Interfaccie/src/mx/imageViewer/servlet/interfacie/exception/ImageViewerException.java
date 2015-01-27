@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mx.imageviewer.servlet.interfacie.exception;
+package mx.imageViewer.servlet.interfacie.exception;
 
 /**
  * Classe utilizzata per la gestione delle eccezioni relative alla visualizzazione 
@@ -10,6 +10,11 @@ package mx.imageviewer.servlet.interfacie.exception;
  *
  */
 public class ImageViewerException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6042376646197813926L;
 
 	/**
 	 * 

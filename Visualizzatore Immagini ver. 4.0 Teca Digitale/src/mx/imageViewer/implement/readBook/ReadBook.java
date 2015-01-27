@@ -8,13 +8,17 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import mx.configuration.Configuration;
+import mx.database.MsSqlException;
 import mx.database.table.Column;
-import mx.imageviewer.schema.gestionelibro.DatiBibliografici;
-import mx.imageviewer.schema.gestionelibro.Immagini;
-import mx.imageviewer.schema.gestionelibro.Immagini.Immagine;
-import mx.log4j.Logger;
-import mx.teca.archivi.arsbni.view.ViewListaIdrImg;
+import mx.imageViewer.imager.ImageManager;
+import mx.imageViewer.imager.exception.ImageException;
+import mx.imageViewer.schema.gestionelibro.DatiBibliografici;
+import mx.imageViewer.schema.gestionelibro.Immagini;
+import mx.imageViewer.schema.gestionelibro.Immagini.Immagine;
+import mx.teca.archivi.arsbni.TblImg;
 import mx.teca.archivi.arsbni.view.ViewListaImg;
 import mx.teca.archivi.arsbni.view.ViewTbllegnotTblris;
 
@@ -28,7 +32,7 @@ public class ReadBook
 	/**
 	 * Variabile utilizzata per loggare l'appplicazione
 	 */
-	private Logger log = new Logger(ReadBook.class, "mx.imageViewer.implement");
+	private Logger log = Logger.getLogger(ReadBook.class);
 
 	/**
 	 * Questa variabile viene utilizzata per gestire il colloqui da parte del client
@@ -43,14 +47,15 @@ public class ReadBook
 		this.request = request;
 	}
 
-	public mx.imageviewer.schema.gestionelibro.ReadBook esegui(String risIdr, String usage)
+	public mx.imageViewer.schema.gestionelibro.ReadBook esegui(String risIdr, String usage)
 	{
 		ViewListaImg view = null;
 		ResultSet rs = null;
-		mx.imageviewer.schema.gestionelibro.ReadBook readBook = null;
+		mx.imageViewer.schema.gestionelibro.ReadBook readBook = null;
 		Immagini immagini = null;
 		int imgLength = 0;
 		int imgWidth = 0;
+		ImageManager imageManager = null;
 		
 		try
 		{
@@ -60,7 +65,7 @@ public class ReadBook
 			view.getCampo("seq").setOrderBy(Column.ORDERBY_CRES, 1);
 			rs = view.startSelect();
 
-			readBook = new mx.imageviewer.schema.gestionelibro.ReadBook();
+			readBook = new mx.imageViewer.schema.gestionelibro.ReadBook();
 			if (view.getRecTot()>0)
 			{
 				while(rs.next())
@@ -75,29 +80,67 @@ public class ReadBook
 						immagini.setNumImg(view.getRecTot());
 						immagini.setIsCostola(false);
 					}
-					if (rs.getString("nota").toLowerCase().contains("costola"))
+					if (rs.getString("nota").toLowerCase().contains("costola") ||
+							rs.getString("nota").toLowerCase().contains("dorso"))
 						immagini.setIsCostola(true);
 
-					imgLength = (rs.getInt("imgLength")==0?800:rs.getInt("imgLength"));
-					imgWidth = (rs.getInt("imgWidth")==0?600:rs.getInt("imgWidth"));
-					if (imgLength>imgWidth)
+					if (rs.getString("hostProt").equals("NFS")){
+						try {
+							if ((rs.getObject("imgLengthConv")== null ||rs.getInt("imgLengthConv")==0) ||
+								(rs.getObject("imgWidthConv")== null ||rs.getInt("imgWidthConv")==0)){
+								imageManager = new ImageManager();
+								imageManager.initialize(
+										ImageManager.createURL(rs.getString("hostProt"), 
+												rs.getString("hostServerPath"), 
+												rs.getString("hostPathDisco"), 
+												rs.getString("imgPathName"), 
+												rs.getString("hostIp"), 
+												rs.getInt("hostPorta"), 
+												rs.getString("hostLogin"), 
+												rs.getString("hostPsw"), 
+												null, true), false);
+								imgLength = imageManager.getHeight();
+								imgWidth = imageManager.getWidth();
+								if (imgLength>0 &&
+										imgWidth>0){
+									updImgConv(imgLength, imgWidth, rs.getString("idTblImg"));
+								} else {
+									
+									imgLength = 800;
+									imgWidth = 600;
+								}
+							} else {
+								imgLength = (rs.getInt("imgLengthConv")==0?800:rs.getInt("imgLengthConv"));
+								imgWidth = (rs.getInt("imgWidthConv")==0?600:rs.getInt("imgWidthConv"));
+							}
+						} catch (ImageException e) {
+							imgLength = (rs.getInt("imgLength")==0?800:rs.getInt("imgLength"));
+							imgWidth = (rs.getInt("imgWidth")==0?600:rs.getInt("imgWidth"));
+						}
+						
+					}else{
+						imgLength = (rs.getInt("imgLength")==0?800:rs.getInt("imgLength"));
+						imgWidth = (rs.getInt("imgWidth")==0?600:rs.getInt("imgWidth"));
+					}
+//					if (imgLength>imgWidth)
   					immagini.getImmagine().add(
   							addImmagine(
   									rs.getString("RelRisIdrPartenza"), 
   									rs.getInt("seq"), 
-  									rs.getString("nota").toLowerCase().contains("costola"), 
+  									(rs.getString("nota").toLowerCase().contains("costola")  ||
+  											rs.getString("nota").toLowerCase().contains("dorso")), 
   									rs.getString("nota"), 
   									imgLength, 
   									imgWidth));
-					else
-						immagini.getImmagine().add(
-								addImmagine(
-										rs.getString("RelRisIdrPartenza"), 
-										rs.getInt("seq"), 
-										rs.getString("nota").toLowerCase().contains("costola"), 
-										rs.getString("nota"), 
-										imgWidth, 
-										imgLength));
+//					else
+//						immagini.getImmagine().add(
+//								addImmagine(
+//										rs.getString("RelRisIdrPartenza"), 
+//										rs.getInt("seq"), 
+//										rs.getString("nota").toLowerCase().contains("costola"), 
+//										rs.getString("nota"), 
+//										imgWidth, 
+//										imgLength));
 				}
 				if (immagini != null)
 					readBook.setImmagini(immagini);
@@ -113,6 +156,10 @@ public class ReadBook
 				} catch (NumberFormatException e) {
 				}
 			}
+		}
+		catch (MsSqlException e)
+		{
+			log.error(e);
 		}
 		catch (SQLException e)
 		{
@@ -133,6 +180,16 @@ public class ReadBook
 			}
 		}
 		return readBook;
+	}
+
+	private void updImgConv(int imgLengthConv, int imgWidthConv, String idTblImg) throws MsSqlException{
+		TblImg tblimg = null;
+		
+		tblimg = new TblImg(Configuration.getPool("teca"));
+		tblimg.setCampoValue("imgLengthConv", imgLengthConv);
+		tblimg.setCampoValue("imgWidthConv", imgWidthConv);
+		tblimg.setCampoValue("idTblImg", idTblImg);
+		tblimg.update();
 	}
 
 	/**
@@ -202,8 +259,8 @@ public class ReadBook
 							!rs.getString("PieceDt").trim().equals("")))
 				datiBibliografici.setUnitaFisica(rs.getString("pieceGr").trim()+" "+rs.getString("PieceDt").trim());
 
-			urlDatiBibliografici = (String)Configuration.listaParametri.get("imageViewer."+request.getServerName()+".urlDatiBibliografici", 
-					Configuration.listaParametri.get("imageViewer.ALL.urlDatiBibliografici", ""));
+			urlDatiBibliografici = (String)Configuration.get("imageViewer."+request.getServerName()+".urlDatiBibliografici", 
+					Configuration.get("imageViewer.ALL.urlDatiBibliografici", ""));
 
 			if (urlDatiBibliografici != null &&
 					!urlDatiBibliografici.trim().equals(""))

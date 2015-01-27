@@ -7,31 +7,34 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
+
+import org.apache.log4j.Logger;
 
 import mx.configuration.Configuration;
 import mx.database.ConnectionPool;
 import mx.database.MsSqlPool;
 import mx.database.table.Column;
 import mx.imageViewer.implement.showImage.ShowImage;
-import mx.imageviewer.schema.gestionelibro.ReadBook;
-import mx.imageviewer.schema.gestioneopera.Libro;
-import mx.imageviewer.schema.gestioneopera.Opera;
-import mx.imageviewer.schema.gestioneopera.Volume;
-import mx.imageviewer.schema.gestionepagina.ImageViewer;
-import mx.imageviewer.schema.gestionepagina.ImageViewer.ShowNavigatore;
-import mx.imageviewer.schema.gestionepagina.ImageViewer.Xlimage;
-import mx.imageviewer.schema.gestionepagina.ImageViewer.Xlimage.Pagina;
-import mx.imageviewer.servlet.interfacie.IImageViewer;
-import mx.imageviewer.servlet.interfacie.exception.ImageViewerException;
-import mx.log4j.Logger;
+import mx.imageViewer.schema.gestionelibro.ReadBook;
+import mx.imageViewer.schema.gestioneopera.Libro;
+import mx.imageViewer.schema.gestioneopera.Opera;
+import mx.imageViewer.schema.gestioneopera.Volume;
+import mx.imageViewer.schema.gestionepagina.ImageViewer;
+import mx.imageViewer.schema.gestionepagina.ImageViewer.ShowNavigatore;
+import mx.imageViewer.schema.gestionepagina.ImageViewer.ShowStru;
+import mx.imageViewer.schema.gestionepagina.ImageViewer.Xlimage;
+import mx.imageViewer.schema.gestionepagina.ImageViewer.Xlimage.Pagina;
+import mx.imageViewer.servlet.interfacie.IImageViewer;
+import mx.imageViewer.servlet.interfacie.exception.ImageViewerException;
 import mx.teca.archivi.arsbni.TblRelRis;
 import mx.teca.archivi.arsbni.Tblris;
 import mx.teca.archivi.arsbni.view.ViewListaImg;
+import mx.teca.archivi.arsbni.view.ViewTblrisFigli;
 
 /**
  * Questa classe viene utilizzata per gestire l'interfaccia verso di 
@@ -46,7 +49,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 	/**
 	 * Variabile utilizzata per loggare l'appplicazione
 	 */
-	private Logger log = new Logger(ImageViewerTecaDigitale.class, "mx.imageViewer.implement");
+	private Logger log = Logger.getLogger(ImageViewerTecaDigitale.class);
 
 	/**
 	 * Indica se l'immagine contiene Carte geografiche
@@ -76,6 +79,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 			imageViewer = new ImageViewer();
 			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.0");
 			isCollezione(request.getParameter("idr"), imageViewer);
+			isStru(request.getParameter("idr"), imageViewer);
 
 			if (request.getParameter("idr")!= null){
 				idr = getBookIdr(request.getParameter("idr"));
@@ -115,9 +119,9 @@ public class ImageViewerTecaDigitale extends IImageViewer
 				}
 				pagina = new Pagina();
 
-				pagina.setUrlPage((String)Configuration.listaParametri.get("bncf.xlimage.urlPage", "http://opac.bncf.firenze.sbn.it/php/xlimage/XLImageRV.php?&amp;xsize=500&amp;image=")+
+				pagina.setUrlPage((String)Configuration.get("bncf.xlimage.urlPage", "http://opac.bncf.firenze.sbn.it/php/xlimage/XLImageRV.php?&amp;xsize=500&amp;image=")+
 						rs.getString("imgPathName"));
-				pagina.setLink((String) Configuration.listaParametri.get("bncf.xlimage.link","javascript:changeImg")+"('"+xlimage.getPagina().size()+"')");
+				pagina.setLink((String) Configuration.get("bncf.xlimage.link","javascript:changeImg")+"('"+xlimage.getPagina().size()+"')");
 				pagina.setKey("IMG."+xlimage.getPagina().size());
 				pagina.setKeyPadre("IMG");
 				pagina.setValue(rs.getString("nota"));
@@ -216,8 +220,79 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		return result;
 	}
 
+	private void isStru(String risIdr, ImageViewer imageViewer){
+		ConnectionPool cp = null;
+		TblRelRis tblRelRis = null;
+		ResultSet rs = null;
+		ShowStru show =null;
+		boolean costola = false;
+
+		try {
+			costola = isCostola(risIdr);
+			cp = Configuration.getPool("teca");
+			tblRelRis = new TblRelRis(cp);
+			tblRelRis.setCampoValue("relRisidrArrivo", risIdr);
+			tblRelRis.setCampoValue("tipoRelId", 3);
+			rs = tblRelRis.startSelect();
+			if (rs.next()){
+				show = new ShowStru();
+				show.setValue(true);
+				show.setIdr(risIdr);
+				show.setCostola(costola);
+				imageViewer.setShowStru(show);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (tblRelRis != null){
+					tblRelRis.stopSelect();
+				}
+			} catch (SQLException e) {
+				log.error(e);
+			}
+		}
+	}
+
+	private boolean isCostola(String risIdr){
+		ViewListaImg view = null;
+		ResultSet rs = null;
+		boolean result = false;
+
+		try
+		{
+			view = new ViewListaImg(Configuration.getPool("teca"));
+			view.setCampoValue("relrisidr", risIdr);
+			view.addWhere(" AND (LOWER(TBLRIS.RISNOTAPUB) like '%costola%' OR LOWER(TBLRIS.RISNOTAPUB) like '%dorso%')");
+			rs = view.startSelect();
+			result = rs.next();
+		}
+		catch (SQLException e)
+		{
+			log.error(e);
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null)
+					rs.close();
+				if (view != null)
+					view.stopSelect();
+			}
+			catch (SQLException e)
+			{
+				log.error(e);
+			}
+		}
+		return result;
+	}
+
 	/**
-	 * Metodo utilizzato per ricavare se l'opera in oggetto è corrispondente ad una collezione
+	 * Metodo utilizzato per ricavare se l'opera in oggetto �� corrispondente ad una collezione
 	 * 
 	 * @param ris
 	 * @return
@@ -285,7 +360,6 @@ public class ImageViewerTecaDigitale extends IImageViewer
 	 * 
 	 * @see mx.imageviewer.servlet.interfacie.IImageViewer#showImage(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void showImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -367,8 +441,8 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		if (request.getParameter("usage") != null)
 			usage = request.getParameter("usage");
 		else
-			usage = (String)Configuration.listaParametri.get("imageViewer."+request.getServerName()+".usageImageDefault", 
-					Configuration.listaParametri.get("imageViewer.ALL.usageImageDefault", "3"));
+			usage = (String)Configuration.get("imageViewer."+request.getServerName()+".usageImageDefault", 
+					Configuration.get("imageViewer.ALL.usageImageDefault", "3"));
 
 		myReadBook = readBook.esegui(request.getParameter("idr"), usage);
 		return myReadBook;
@@ -380,7 +454,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		
 		foglioXsl = super.getFoglioXsl(serverName);
 		if (xlimage){
-			foglioXsl = (String) Configuration.listaParametri.get("bncf.xlimage.xsl", xlimage);
+			foglioXsl = (String) Configuration.get("bncf.xlimage.xsl", xlimage);
 		}
 		return foglioXsl;
 	}
@@ -388,6 +462,12 @@ public class ImageViewerTecaDigitale extends IImageViewer
 	@Override
 	public Opera readCatalogo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		return readCatalogo(request, response, true);
+	}
+
+	
+	public Opera readCatalogo(HttpServletRequest request,
+			HttpServletResponse response, boolean initBook) throws ServletException, IOException {
 		ConnectionPool cp = null;
 		MsSqlPool msp = null;
 		ResultSet rs = null;
@@ -400,19 +480,19 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		try {
 			cp = Configuration.getPool("teca");
 			msp = cp.getConn();
-			rs = msp.StartSelect("select tbllegnot.tmpautore, "+
-										"tbllegnot.tmptitolo, "+
-										"tbllegnotris.risidr, "+
-										"tbllegnotris.piecegr, "+
-										"tbllegnotris.piecedt, "+
-										"tbllegnotris.piecein "+
-								   "from tblrelris, "+
-								   		"tbllegnotris, "+
-								   		"tbllegnot "+
-								  "where tblrelris.relrisidrarrivo='"+request.getParameter("idr")+"' AND "+
-								  		"tblrelris.relrisidrpartenza=tbllegnotris.risidr AND "+
-								  		"tbllegnotris.id_tbllegnot=tbllegnot.id_tbllegnot "+
-							   "order by tbllegnotris.piecein;");
+			rs = msp.StartSelect("SELECT TBLLEGNOT.tmpautore, " +
+					                    "TBLLEGNOT.tmptitolo, " +
+					                    "TBLLEGNOTRIS.risidr, " +
+					                    "TBLLEGNOTRIS.piecegr, " +
+					                    "TBLLEGNOTRIS.piecedt, " +
+					                    "TBLLEGNOTRIS.piecein " +
+                                   "FROM TBLRELRIS, " +
+                                        "TBLLEGNOTRIS, " +
+                                        "TBLLEGNOT " +
+                                  "WHERE TBLRELRIS.relrisidrarrivo = '"+request.getParameter("idr")+"' AND " +
+                                  		"TBLRELRIS.relrisidrpartenza = TBLLEGNOTRIS.risidr AND " +
+                                  		"TBLLEGNOTRIS.id_tbllegnot = TBLLEGNOT.id_tbllegnot " +
+                               "ORDER BY TBLLEGNOTRIS.piecein;");
 			while (rs.next()){
 				if (opera==null){
 					opera = new Opera();
@@ -457,7 +537,11 @@ public class ImageViewerTecaDigitale extends IImageViewer
 				
 				dettaglio = new Volume();
 				dettaglio.setValue(rs.getString("piecedt"));
-				dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
+				if (initBook){
+					dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
+				}else{
+					dettaglio.setHref(rs.getString("risidr"));
+				}
 				gruppo.getVolume().add(dettaglio);
 			}
 			if (libro != null){
@@ -493,5 +577,165 @@ public class ImageViewerTecaDigitale extends IImageViewer
 			}
 		}
 		return opera;
+	}
+
+	@Override
+	public ImageViewer showCatalogo(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ImageViewer imageViewer = null;
+		Opera opera = null;
+		String idr = "";
+
+		try
+		{
+			showOpere=true;
+			log.debug("initPage");
+			imageViewer = new ImageViewer();
+			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.0");
+
+			if (request.getParameter("idr")!= null){
+				idr = getBookIdr(request.getParameter("idr"));
+				imageViewer.setIdr(idr);
+			}
+			opera = readCatalogo(request, response, false);
+			for (Libro libro : opera.getLibro()){
+				imageViewer.getLibro().add(libro);
+			}
+		} catch (ImageViewerException e) {
+			imageViewer.setMsgError(e.getMessage());
+		}
+		return imageViewer;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public Opera readStru(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Opera opera = null;
+		Libro  libro = null;
+		Vector<String[]> stru = null;
+		boolean costola = false;
+
+		stru = readStru(request.getParameter("idr"), "3");
+		if (stru != null){
+			opera = new Opera();
+			costola = isCostola(request.getParameter("idr"));
+			for (int x=0; x<stru.size(); x++){
+				libro = new Libro();
+				libro.setTitolo(stru.get(x)[1]);
+				checkStru(libro, stru.get(x)[0], request.getParameter("idr"), costola);
+				opera.getLibro().add(libro);
+			}
+		}
+		return opera;
+	}
+
+	private void checkStru(Libro libro, String idr, String idrPadre, boolean costola) throws ServletException{
+		Vector<String[]> stru = null;
+		Libro  subLibro = null;
+		Volume volume = null;
+		int idPagina = 0;
+
+		try {
+			stru = readStru(idr, "3");
+			if (stru != null){
+				for (int x=0; x<stru.size(); x++){
+					subLibro = new Libro();
+					subLibro.setTitolo(stru.get(x)[1]);
+					checkStru(subLibro, stru.get(x)[0], idrPadre, costola);
+					libro.getLibro().add(subLibro);
+				}
+			}else{
+				stru = readStru(idr, "1");
+				if (stru != null){
+					for (int x=0; x<stru.size(); x++){
+						volume = new Volume();
+						volume.setValue(stru.get(x)[1]);
+						idPagina = getIdPagina(idrPadre, stru.get(x)[0]);
+						if (costola){
+							idPagina--;
+						}
+						volume.setHref("javascript:parent.changePage("+idPagina+");");
+						libro.getVolume().add(volume);
+					}
+				}
+			}
+		} catch (ServletException e) {
+			throw e;
+		}
+		
+	}
+
+	private int getIdPagina(String idrPadre, String idr) throws ServletException{
+		TblRelRis table = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			table = new TblRelRis(Configuration.getPool("teca"));
+			table.setCampoValue("relRisidrPartenza", idr);
+			table.setCampoValue("relRisidrArrivo", idrPadre);
+			rs = table.startSelect();
+			if (rs.next()){
+				result = rs.getInt("relRisSequenza");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			throw new ServletException(e.getMessage(), e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (table != null){
+					table.stopSelect();
+				}
+			} catch (SQLException e) {
+				log.error(e);
+				throw new ServletException(e.getMessage(), e);
+			}
+		}
+		return result;
+	}
+
+	private Vector<String[]> readStru(String idr, String tipoRelId) throws ServletException{
+		ViewTblrisFigli viewTblRisFigli = null;
+		ResultSet rs = null;
+		Vector<String[]> result =null;
+		String[] dati = null;
+
+		try{
+			viewTblRisFigli = new ViewTblrisFigli(Configuration.getPool("teca"));
+			viewTblRisFigli.setCampoValue("idrp", idr);
+			viewTblRisFigli.setCampoValue("tipoRelId", tipoRelId);
+			rs = viewTblRisFigli.startSelect();
+			while (rs.next()){
+				if (result == null){
+					result= new Vector<String[]>();
+				}
+				dati = new String[2];
+				dati[0]=rs.getString("idr");
+				dati[1]=rs.getString("nota");
+				result.add(dati);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			throw new ServletException(e.getMessage(), e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (viewTblRisFigli != null){
+					viewTblRisFigli.stopSelect();
+				}
+			} catch (SQLException e) {
+				log.error(e);
+				throw new ServletException(e.getMessage(), e);
+			}
+		}
+		return result;
 	}
 }

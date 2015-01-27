@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="http://www.imageViewer.mx/schema/gestionePagina"
-    xmlns="http://www.imageViewer.mx/schema/gestionePagina">
-
+    xmlns="http://www.imageViewer.mx/schema/gestionePagina"
+    xmlns:opera="http://www.imageViewer.mx/schema/gestioneOpera">
+    <xs:import namespace="http://www.imageViewer.mx/schema/gestioneOpera"
+        schemaLocation="Gestione%20Lista%20Opere.xsd"/>
     <xs:element name="imageViewer">
         <xs:complexType>
             <xs:sequence>
@@ -23,11 +25,20 @@
                     <xs:complexType>
                         <xs:simpleContent>
                             <xs:extension base="xs:boolean">
-                                <xs:attribute name="idr" type="xs:string">
-                                    <xs:annotation>
-                                        <xs:documentation xml:lang="it">Indica l'identificativo della risorsa relativa alla collezione</xs:documentation>
-                                    </xs:annotation>
-                                </xs:attribute>
+                                <xs:attributeGroup ref="gIdentificativi"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="showStru">
+                    <xs:annotation>
+                        <xs:documentation>Indica se è presente una Stru associato all'opera</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:boolean">
+                                <xs:attributeGroup ref="gIdentificativi"/>
+                                <xs:attribute default="false" name="costola" type="xs:boolean"/>
                             </xs:extension>
                         </xs:simpleContent>
                     </xs:complexType>
@@ -87,7 +98,15 @@ cambiare la pagina da visualizzare
                         <xs:attribute name="titolo" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="opera:libro"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:attributeGroup name="gIdentificativi">
+        <xs:attribute name="idr" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="it">Indica l'identificativo della risorsa relativa alla collezione</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
 </xs:schema>

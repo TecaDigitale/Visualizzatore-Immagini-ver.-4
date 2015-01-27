@@ -48,7 +48,7 @@
     			<script type="text/javascript" src="../navigator/js/Navigator.js"></script>
     			<xsl:if test="not(xlimage) and showNavigatore">
     				<script type="text/javascript">
-    					<xsl:text disable-output-escaping="yes">var _url = "http://192.168.7.34/ImageViewer/servlet/ImageViewer?azione=readCatalogo&amp;idr=</xsl:text><xsl:value-of select="showNavigatore/@idr"/>";
+    					<xsl:text disable-output-escaping="yes">var _url = "http://192.168.233.125/ImageViewer/servlet/ImageViewer?azione=readCatalogo&amp;idr=</xsl:text><xsl:value-of select="showNavigatore/@idr"/>";
     				</script>
     			</xsl:if>
     		</head>

@@ -1,4 +1,4 @@
-package mx.imageviewer.servlet.interfacie.manifestPrefix;
+package mx.imageViewer.servlet.interfacie.manifestPrefix;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
@@ -12,6 +12,8 @@ public class ImageViewerNamespacePrefixMapper extends NamespacePrefixMapper
       return "mx-pagina";
     else if (namespaceUri.equals("http://www.imageViewer.mx/schema/gestioneLibro")) 
       return "mx-libro";
+    else if (namespaceUri.equals("http://www.imageViewer.mx/schema/gestioneOpera")) 
+        return "mx-opera";
     else
     {
     	if (suggestion == null && !namespaceUri.equals(""))

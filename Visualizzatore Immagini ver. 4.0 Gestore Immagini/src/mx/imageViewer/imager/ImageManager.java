@@ -11,17 +11,18 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.media.jai.EnumeratedParameter;
 import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
 
+import org.apache.log4j.Logger;
+
 import mx.imageViewer.IVConfiguration;
 import mx.imageViewer.imager.exception.ImageException;
-import mx.log4j.Logger;
 
-import com.sun.media.jai.codec.TIFFDirectory;
 import com.sun.media.jai.util.SunTileCache;
 
 /**
@@ -34,7 +35,7 @@ public class ImageManager
 	/**
 	 * Questa variabile viene utilizzata per loggare l'aplicazione
 	 */
-	private static Logger log = new Logger(ImageManager.class, "mx.imageViewer.imager");
+	private static Logger log = Logger.getLogger(ImageManager.class);
 
 	private PlanarImage sourceImageJAI = null;
 
@@ -55,10 +56,18 @@ public class ImageManager
 	 */
 	public void initialize(URL url, boolean isJpeg2000)
 	{
+		GregorianCalendar gcStart = null;
+		GregorianCalendar gcStop = null;
+
 		this.url = url;
+
+		gcStart = new GregorianCalendar();
 		sourceImageJAI = JAI.create((isJpeg2000?IVConfiguration.IMAGE_READER:IVConfiguration.URL), url);
+		gcStop  = new GregorianCalendar();
+		log.info("initialize URL: "+this.url.getFile()+" t.: "+(gcStop.getTimeInMillis()-gcStart.getTimeInMillis()));
 	}
 
+	/*
 	private boolean isTiff()
 	{
 		boolean ris = false;
@@ -69,7 +78,29 @@ public class ImageManager
 		}
 		return ris;
 	}
+	*/
 
+	public int getHeight(){
+		int height = 0;
+		try {
+			height = sourceImageJAI.getHeight();
+		} catch (Exception e) {
+			height = 0;
+		}
+		return height;
+	}
+
+	public int getWidth(){
+		int width = 0;
+		
+		try {
+			width = sourceImageJAI.getWidth();
+		} catch (Exception e) {
+			width = 0;
+		}
+		return width;
+	}
+	
 	public void resize(double height, double width)
 	{
 		ParameterBlock param = null;
@@ -83,24 +114,33 @@ public class ImageManager
 
 		f = Float.valueOf(Double.toString(z)).floatValue();
 		param.add(f); // The xScale
-    param.add(f); // The yScale
-    param.add(0.0F); // The x translation
-    param.add(0.0F); 
+		param.add(f); // The yScale
+		param.add(0.0F); // The x translation
+		param.add(0.0F); 
 
-    RenderingHints hints = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);           
-    sourceImageJAI = JAI.create("scale", param, hints);
+		RenderingHints hints = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);           
+		sourceImageJAI = JAI.create("scale", param, hints);
 
 	}
 
-	public void sendImage(OutputStream output)
+	public void sendImage(OutputStream output) 
 	{
+		GregorianCalendar gcStart = null;
+		GregorianCalendar gcStop = null;
 		try
 		{
+			gcStart = new GregorianCalendar();
 			ImageIO.write(sourceImageJAI, "JPEG", output);
+			gcStop  = new GregorianCalendar();
+			log.info("sendImage URL: "+this.url.getFile()+" t.: "+(gcStop.getTimeInMillis()-gcStart.getTimeInMillis()));
 		}
 		catch (IOException e)
 		{
 			log.error(e);
+		}
+		catch (RuntimeException e)
+		{
+			throw e;
 		}
 		finally
 		{

@@ -1,114 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="Visualizzatore Immagini ver. 4.0 Dynamic">
-        <wb-resource deploy-path="/" source-path="/ImageViewer"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/ImageViewer" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="Librerie_Personali.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Librerie Personali/Librerie Personali">
+        <dependent-module archiveName="ImageViewerImplement-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Teca Digitale/Visualizzatore Immagini ver. 4.0 Teca Digitale">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="Visualizzatore_Immagini_ver._4.0_Teca_Digitale.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Teca Digitale/Visualizzatore Immagini ver. 4.0 Teca Digitale">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Visualizzatore_Immagini_ver._4.0_Interfaccie.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Interfaccie/Visualizzatore Immagini ver. 4.0 Interfaccie">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="XmlMag_Gestione_file_Mag_Convert.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/XmlMag Gestione file Mag Convert/XmlMag Gestione file Mag Convert">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="XmlMag_Gestione_Immagini.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/XmlMag Gestione Immagini/XmlMag Gestione Immagini">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Connessioni_DataBase.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Connessioni DataBase/Gestione Connessioni DataBase">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="XmlMag_Librerie_di_Utility.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/XmlMag Librerie di Utility/XmlMag Librerie di Utility">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="XmlMag_Gestione_file_Mag_Interfacce.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/XmlMag Gestione file Mag Interfacce/XmlMag Gestione file Mag Interfacce">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Xml.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Xml/Gestione Xml">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Parser_Xml.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Parser Xml/Gestione Parser Xml">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="XmlMag_Gestione_file_Mag.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/XmlMag Gestione file Mag/XmlMag Gestione file Mag">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Configurazioni.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Configurazioni/Gestione Configurazioni">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Schema_XSD.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Schema XSD/Gestione Schema XSD">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Teca_Digitale_Materiale_Comune.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Teca Digitale Materiale Comune/Teca Digitale Materiale Comune">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Socket.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Socket/Gestione Socket">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Connessioni_Ftp.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Connessioni Ftp/Gestione Connessioni Ftp">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/org/gjt/tst/FtpLibrary.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/lib/dsn.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/lib/imap.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/lib/mailapi.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/lib/pop3.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/lib/smtp.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/mail/mail.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Modulo_Cattura_materiale_dallo_Storage.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Modulo Cattura materiale dallo Storage/Modulo Cattura materiale dallo Storage">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Visualizzatore_Immagini_ver._4.0_Gestore_Immagini.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Gestore Immagini/Visualizzatore Immagini ver. 4.0 Gestore Immagini">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/com/sun/xml/jaxb-impl-2.1.4.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Visualizzatore_Immagini_ver._4.0_Acs.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Acs/Visualizzatore Immagini ver. 4.0 Acs">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="San_Carlo_Napoli_Modulo_Lucene.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/San Carlo Napoli Modulo Lucene/San Carlo Napoli Modulo Lucene">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="San_Carlo_Napoli_Gestione_Schema_Dati.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/San Carlo Napoli Gestione Schema Dati/San Carlo Napoli Gestione Schema Dati">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Gestione_Lucene.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Lucene/Gestione Lucene">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/org/apache/lucene/lucene-core-2.9.2.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/ij/ImageJ.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/magick/jmagick-6.4.0.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/javax/media/jai_core.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Librerie Terze Parti Java/com/sun/media/jai/code/jai_codec.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <property name="context-root" value="ImageViewer"/>
         <property name="java-output-path" value="/Visualizzatore Immagini ver. 4.0 Dynamic/build/classes"/>
+        <property name="context-root" value="ImageViewerServlet"/>
     </wb-module>
 </project-modules>
