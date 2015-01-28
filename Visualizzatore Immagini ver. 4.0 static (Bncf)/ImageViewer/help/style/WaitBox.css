@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+div.WaitBox
+{ 
+  width:220px; height:80px;
+  position:absolute;top:50%;left:50%; 
+  margin: -20px 0px 0px -110px;
+  background:#327EBE;
+  border:2px solid #09518D; 
+  font:14px verdana, sans-serif;
+  color:white;
+  text-align:center;
+  padding:5px;
+  z-index: 100;
+} 
+

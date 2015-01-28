@@ -1,0 +1,278 @@
+@CHARSET "ISO-8859-1";
+body
+{
+	background-color: #FFFFEA;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font-family: verdana, arial, helvetica, sans-serif;
+	overflow: hidden;
+}
+div.logo
+{
+	background-color: #FFFFEA;
+	float: left;
+}
+span.msgErr
+{
+  width:100%;
+  text-align: center;
+  color: #FF0000;
+  font-size: 38px;
+}
+font.bibliografia
+{
+	font-size: 0.7em;
+}
+div.myBody
+{
+  min-height: 100%;
+  height: 100% !important;
+  height: 100%;
+  min-width: 100%;
+  width: 100% !important;
+  width: 100%;
+  overflow: auto;
+}
+
+div.header
+{
+	background-image: url(http://www.bncf.firenze.sbn.it/img/bg_header.jpg);
+	background-position: top right;
+	background-repeat: no-repeat;
+	border: 2px;
+	float: left;
+	min-height: 59px;
+	width: 100%;
+	height: auto !important;
+	height: 59px;
+}
+
+div.zoom
+{
+	position:relative;
+	float: left;
+	width: 100%;
+	top: 5px;
+	height: 0px;
+	border: 0px;
+	text-align: right;
+}
+img.zoomImg
+{
+}
+div.center
+{
+	border: 2px;
+	float: left;
+	width: 100%;
+}
+
+div.column
+{
+	float: left;
+}
+div.ShowHelp
+{
+	border: solid 1px;
+        height: 100%;
+}
+
+div.pagine
+{
+	float: left;
+	min-height: 52px;
+	min-width: 124px;
+	max-width: 224px;
+	width: 224px;
+	height: 52px;
+}
+
+div.viewer
+{
+	float: left;
+	border: 1px solid;
+}
+
+div.periodici
+{
+	float: left;
+	max-width: 224px;
+	scrollbar-face-color: #ED1C24;
+}
+
+div.periodiciShow
+{
+	float: left;
+	min-height: 520px;
+	min-width: 20px;
+	width: 20px;
+}
+
+div.paginaShow
+{
+	float: left;
+	min-height: 520px;
+	min-width: 20px;
+	width: 20px;
+}
+
+div.logoHeader
+{
+	float: right;
+}
+
+div.head_text
+{
+	float: left;
+	min-height: 52px;
+}
+
+div.head_text1
+{
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+div.head_text2
+{
+	font-size: 1em;
+	color: #000000;
+	font-weight: bold;
+}
+
+span.head_text2
+{
+	position: relative;
+	top: 35px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+div.menu
+{
+	clear: both;
+	text-align: center;
+	font-size: 0.9em;
+	font-family: Arial;
+	padding-top: 0.4em;
+	padding-bottom: 1em;
+}
+
+table.ricerca
+{
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	border-color: #B4B4B4;
+	border-spacing: 0px;
+  width: 600px;
+}
+
+table.ricerca th
+{
+	font-size: 1.0em;
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	background-color: #B4B4B4;
+}
+
+table.ricerca td
+{
+	font-size: 0.8em;
+	border-spacing: 1px;
+}
+
+td.button
+{
+	text-align: center;
+	border-top: 1px solid;
+	border-top-color: #B4B4B4;
+}
+
+input.button
+{
+	font-size: 1.0em;
+	font-weight: bold;
+	color:#81a506;
+	background-color: #CBCBCB;
+}
+
+table.footer td
+{
+	text-align: center;
+	font-size: 0.6em;
+}
+
+table.result
+{
+	border-spacing: 0px;
+  width: 98%;
+}
+
+td.titleResult
+{
+	font-size: 1.0em;
+	background-color: #CBCBCB;
+}
+
+td.documentResult
+{
+	vertical-align: center;
+	font-size: 1.0em;
+	height: 50px;
+}
+
+table.resultDet
+{
+	width: 100%;
+	border-collapse: collapse;
+	border: 0.1em solid #CBCBCB;
+	margin: 0px;
+	padding: 0px;
+}
+
+table.resultDet th
+{
+	font-size: 1.0em;
+	border: 0.1em solid #CBCBCB;
+	border-collapse: 0px;
+	border-spacing: 0px;
+}
+
+table.resultDet th.resultSel
+{
+	font-size: 1.0em;
+	border: 0.1em solid #CBCBCB;
+	border-collapse: 0px;
+	border-spacing: 0px;
+	background-color: #CBCBCB;
+}
+
+table.resultRis
+{
+	width: 100%;
+	border-collapse: collapse;
+	border: 0.1em solid #CBCBCB;
+	margin: 0px;
+	padding: 0px;
+}
+
+table.resultRis th
+{
+	font-size: 1.0em;
+	border: 0.1em solid #CBCBCB;
+	background-color: #BCBCBC;
+	border-collapse: 0px;
+	border-spacing: 0px;
+}
+
+table.resultRis td
+{
+	font-size: 1.0em;
+	border: 0.1em solid #CBCBCB;
+	border-collapse: 0px;
+	border-spacing: 0px;
+}

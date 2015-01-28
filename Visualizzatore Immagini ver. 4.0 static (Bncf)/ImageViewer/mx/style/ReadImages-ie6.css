@@ -1,0 +1,25 @@
+div#columns{
+}
+
+div#BRtoolbar
+{
+  top:2px;
+}
+
+div#BRcontainer{
+  top: 25px;
+    height: expression(BRContainerHeight(documentElement.scrollTop,document.getElementsByTagName('body')[0].clientHeight,this.offsetHeight));
+    #height: 400px;
+}
+
+div#BRnav{
+  _top: expression(BRnavTop(documentElement.scrollTop,document.getElementsByTagName('body')[0].clientHeight,this.offsetHeight));
+}
+
+div#BRpage{
+  width: 300px;
+}
+div#BRnavpos{
+  width: auto;
+}
+

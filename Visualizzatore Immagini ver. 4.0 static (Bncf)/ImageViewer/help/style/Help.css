@@ -1,0 +1,11 @@
+div.myBody
+{
+  border: solid 1px;
+  height: 60px;
+  overflow: auto;
+}
+div.ShowHelp
+{
+  height:440px;
+  overflow: auto;
+}
