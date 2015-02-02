@@ -30,7 +30,7 @@ public abstract class IImageViewer {
 	 * @return
 	 */
 	public abstract ImageViewer initPage(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException;
+			HttpServletResponse response, String serverName) throws ServletException, IOException;
 
 	/**
 	 * Metodo utilizzato per inviare l'immagine verso il client
@@ -113,5 +113,9 @@ public abstract class IImageViewer {
 				Configuration.get("imageViewer.ALL"
 						+ (showOpere ? ".xslOpere" : ".xsl"), ""));
 		return fileXsl;
+	}
+
+	public boolean isShowOpere() {
+		return showOpere;
 	}
 }

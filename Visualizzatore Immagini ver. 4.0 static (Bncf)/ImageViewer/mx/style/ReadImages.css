@@ -1,6 +1,6 @@
 body
 {
-	background-color: #FFFFEA;
+	background-color: #FFFFFF;
 	margin: 0px;
 	padding: 0px;
 	height: 100%;
@@ -19,15 +19,16 @@ div#wait
 
 div#BookReader
 {
-     left:10px;
-     right:10px;
-     top:69px;
+     left:4px;
+     right:4px;
+     top:43px;
      bottom:30px;
 }
 
 #BRtoolbar
 {
-  background-color: #575757;
+  background-color: #ac1e28;
+  top: -40px;
 }
 
 #BRtoolbar .label
@@ -36,13 +37,120 @@ div#BookReader
   font-family: Verdana, Arial, San Serif;
 }
 
+#BRbookcover {
+	background-image: url(../../BookReader/images/back_pages.png);
+}
+
+.BRleafEdgeR {
+	background: transparent url(../../BookReader/images/back_pages.png) repeat scroll 0% 0%;
+}
+
+.BRleafEdgeL {
+	background: transparent url(../../BookReader/images/back_pages.png) repeat scroll 0% 0%;
+}
+
+.BRleafEdgeTmp {
+	background: transparent url(../../BookReader/images/back_pages.png) repeat scroll 0% 0%;
+}
+
+#BRgutter {
+	background: transparent url(../../BookReader/images/booksplit.png) repeat scroll 0% 0%;
+}
+
+.BRicon {
+	background-image: url(../../BookReader/images/BRicons.png);
+}
+
+a.logo {
+	    background: url("http://opac.bncf.firenze.sbn.it/opac/img/logo-bncf.jpg") no-repeat scroll 0 0 / 81px auto transparent;
+	    width: 82px;
+}
+
+a.popOff {
+    background-image: url(../../BookReader/images/BRicons.png);
+}
+
+.BRfliparea {
+    background-image: url(../../BookReader/images/transparent.png);
+}
+
+.BRfloat a.floatShut {
+	background-image:url("../../BookReader/images/icon_close-pop.png");
+}
+
+.BRfloatMeta p.moreInfo span {
+    background: url("../../BookReader/images/icon_OL-logo-xs.png") no-repeat;
+}
+
+.BRfloatFoot a.problem {
+    background: url("../../BookReader/images/icon_alert-xs.png") no-repeat;
+}
+
+#BRpager .ui-slider-handle {
+    background: url(../../BookReader/images/slider.png);
+}
+
+div#pager {
+    background: url(../../BookReader/images/slider.png);
+}
+
+div.chapter {
+    background: transparent url(../../BookReader/images/marker_chap-off.png) no-repeat;
+}
+
+div.chapter.front {
+    background: transparent url(../../BookReader/images/marker_chap-on.png) no-repeat;
+}
+
+div.search {
+    background-image: url(../../BookReader/images/marker_srch-off.png);
+}
+
+div.search div.pointer {
+    background: transparent url(../images/marker_srch-on.png) no-repeat;
+}
+
+div.searchChap {
+    background-image: url(../../BookReader/images/marker_srchchap-off.png);
+}
+
+div.searchChap.front {
+    background-image: url(../../BookReader/images/marker_srchchap-on.png);
+}
+
+div.search.front {
+    background: transparent url(../../BookReader/images/marker_srch-on.png) no-repeat;
+}
+
+div#BRzoombtn {
+    background: url("../../BookReader/images/icon_zoomer.png");
+}
+
+.BRprogressbar {
+    background-image: url("../../BookReader/images/progressbar.gif");
+}
+
+.BRup {
+    background-image: url("../../BookReader/images/nav_control-up.png");
+}
+
+.BRdn {
+    background-image: url("../../BookReader/images/nav_control-dn.png");
+}
+
 a.BRblack
 {
   color:#FFFFFF;
   font-family: Verdana, Arial, San Serif;
 }
+div#BRnav {
+    bottom: -36;
+}
 
-div.header
+div.header{
+	display: none;
+}
+div.headerOld
 {
 	background-image: url(http://www.bncf.firenze.sbn.it/img/bg_header.jpg);
 	background-position: top right;
@@ -51,13 +159,13 @@ div.header
 	float: left;
 	min-height: 59px;
 	width: 100%;
-	height: auto !important;
+#	height: auto !important;
 	height: 59px;
 }
 
 div.footer {
     bottom: 0;
-    height: 20px;
+    height: 33px;
     left: 0;
     position: absolute;
     width: 100% !important;
@@ -68,16 +176,21 @@ table.footer td {
     text-align: center;
 }
 
-div.logo{
-    float:left;
+div.logo {
+    clear: both;
+    height: 58px;
+    margin: 3px auto auto 5px;
+}
+div.logo img {
+    height: 50px;
 }
 
 div.head_text2{
-    float: left;
+    visibility: hidden;
 }
 
 div.logoHeader{
-    float:right;
+    visibility: hidden;
 }
 
 img.iconBook{
@@ -91,10 +204,24 @@ img.iconBook{
   left: -304px;
   background: #FFF;
   top: 0px;
-  z-index:10;
+  z-index:1000;
   height: 100%;
   border-left: 1px solid #545454;
   box-shadow: -1px 0 1px #888;
+}
+
+.sidecolStru {
+  position: absolute;
+  width: 300px;
+  left: -304px;
+  background: #FFF;
+  top: 0px;
+  z-index:1000;
+  height: 100%;
+  border-left: 1px solid #545454;
+  #box-shadow: -1px 0 1px #888;
+  box-shadow: -1px 0 0 #888;
+  left: 0;
 }
 
 .box 
@@ -146,4 +273,78 @@ img.iconBook{
 
 .hide-right #columns {
   padding: 0 0 0 15em;																																			/* era 12 */
+}
+
+a.logo{
+#  display: none;
+}
+
+.BRicon.play {
+  display: block;
+}
+
+.BRicon.read {
+  display: none;
+}
+
+.BRicon.info {
+  display: none;
+}
+
+.BRicon.full {
+  display: none;
+}
+
+form#booksearch {
+  display: none;
+}
+div.menu {
+    color: #FFFFFF;
+    font-size: 0.95em;
+    height: auto !important;
+    text-align: center;
+}
+.menu a.menu {
+    background: url("../icon/bkg_menu.gif") no-repeat scroll right top transparent;
+    display: inline-block;
+    font-size: 0.95em;
+    font-weight: bold;
+    padding: 10px 10px 6px !important;
+}
+a.menu:link {
+    background-color: #E6DDD3;
+    color: #1E3D59;
+    text-decoration: none;
+}
+a.menu:visited {
+    background-color: #E6DDD3;
+    color: #1E3D59;
+    text-decoration: none;
+}
+a.menu:active {
+    background-color: #9A9B9D;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+a.menu:hover {
+    background-color: #9A9B9D;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+a#active {
+    background-color: #9A9B9D;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+p.menu {
+    vertical-align: middle;
+}
+
+#BRreturn a {
+    color: #FFFFFF;
+}
+
+div#BRnav {
+    overflow: visible;
+    position: absolute;
 }

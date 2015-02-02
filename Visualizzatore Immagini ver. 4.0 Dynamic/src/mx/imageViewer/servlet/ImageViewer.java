@@ -23,6 +23,7 @@ import mx.imageViewer.servlet.interfacie.IImageViewer;
 import mx.imageViewer.servlet.interfacie.manifestPrefix.ImageViewerNamespacePrefixMapper;
 import mx.randalf.converter.xsl.ConverterXsl;
 import mx.randalf.converter.xsl.exception.ConvertXslException;
+import mx.randalf.xsd.exception.XsdException;
 
 import org.apache.log4j.Logger;
 
@@ -123,21 +124,11 @@ public class ImageViewer extends HttpServlet implements Servlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("rawtypes")
 	private void esegui(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ImageViewerXsd imageViewerXsd = null;
-		ReadBookXsd readBookXsd = null;
-		OperaXsd operaXsd = null;
-		mx.imageViewer.schema.gestionepagina.ImageViewer imgViewer = null;
-		ReadBook readBook = null;
-		Opera opera= null;
-		IImageViewer imageViewer = null;
-		Class myClass = null;
 		String metodo = "";
 		String azione = "";
 		String className = "";
-		String fileXsl = "";
 
 		try {
 			log.debug("esegui");
@@ -160,96 +151,21 @@ public class ImageViewer extends HttpServlet implements Servlet {
 						"imageViewer." + metodo + ".class", "");
 				log.debug("className: " + className);
 
-				myClass = Class.forName(className);
-				imageViewer = (IImageViewer) myClass.newInstance();
+//				myClass = Class.forName(className);
+//				imageViewer = (IImageViewer) myClass.newInstance();
 
 				if (azione.equals("home")) {
-					imgViewer = imageViewer.initPage(request, response);
-
-					if (imgViewer != null) {
-						response.setContentType("text/html; charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-
-						fileXsl = imageViewer.getFoglioXsl(request.getServerName());
-						imageViewerXsd = new ImageViewerXsd();
-						ConverterXsl
-								.convertXsl(
-										fileXsl,
-										imageViewerXsd.writeInputStream(imgViewer, new ImageViewerNamespacePrefixMapper()),
-//										GestioneXsd
-//												.writeInputStream(
-//														imgViewer,
-//														new ImageViewerNamespacePrefixMapper()),
-										response.getOutputStream());
-					} else
-						throw new ServletException(
-								"Non risulta essere presente le informazioni necessarie per la creazione della pagina principale");
+					showHome(request,response, className);
 				} else if (azione.equals("readBook")) {
-					readBook = imageViewer.readBook(request, response);
-
-					if (readBook != null) {
-						response.setContentType("text/xml; charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-						readBookXsd = new ReadBookXsd();
-						readBookXsd.write(readBook, response.getOutputStream(), 
-								new ImageViewerNamespacePrefixMapper(), null, 
-								null, null);
-//						GestioneXsd.write(readBook, response.getOutputStream(),
-//								new ImageViewerNamespacePrefixMapper());
-					} else
-						throw new ServletException(
-								"Non risulta essere presente le informazioni del libro");
+					bookReader(request, response, className);
 				} else if (azione.equals("readCatalogo")) {
-					opera = imageViewer.readCatalogo(request, response);
-
-					if (opera != null) {
-						response.setContentType("text/xml; charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-						operaXsd = new OperaXsd();
-						operaXsd.write(opera, response.getOutputStream(), null, 
-								null, null, null);
-//						GestioneXsd.write(opera, response.getOutputStream());
-					} else
-						throw new ServletException(
-								"Non risulta essere presente le informazioni del libro");
+					readCatalogo(request, response, className);
 				} else if (azione.equals("showCatalogo")) {
-					imgViewer = imageViewer.showCatalogo(request, response);
-
-					if (imgViewer != null) {
-						response.setContentType("text/html; charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-
-						imageViewerXsd = new ImageViewerXsd();
-						System.out.println(imageViewerXsd.write(imgViewer, null, null, null, null));
-//						System.out.println(GestioneXsd.writeXml(imgViewer));
-						fileXsl = imageViewer.getFoglioXsl(request.getServerName());
-						ConverterXsl
-								.convertXsl(
-										fileXsl,
-										imageViewerXsd.writeInputStream(imgViewer, 
-												new ImageViewerNamespacePrefixMapper()),
-//										GestioneXsd
-//												.writeInputStream(
-//														imgViewer,
-//														new ImageViewerNamespacePrefixMapper()),
-										response.getOutputStream());
-					} else
-						throw new ServletException(
-								"Non risulta essere presente le informazioni del libro");
+					showCatalogo(request, response, className);
 				} else if (azione.equals("readStru")) {
-					opera = imageViewer.readStru(request, response);
-
-					if (opera != null) {
-						response.setContentType("text/xml; charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-						operaXsd = new OperaXsd();
-						operaXsd.write(opera, response.getOutputStream(), null, null, null, null);
-//						GestioneXsd.write(opera, response.getOutputStream());
-					} else
-						throw new ServletException(
-								"Non risulta essere presente le informazioni del libro");
+					readStru(request, response, className);
 				} else if (azione.equals("showImg")) {
-					imageViewer.showImage(request, response);
+					showImg(request, response, className);
 				} else
 					throw new ServletException(
 							"L'azione richiesta non \u00E8 prevista da questa applicazione");
@@ -257,26 +173,282 @@ public class ImageViewer extends HttpServlet implements Servlet {
 				throw new ServletException(
 						"Il metodo richiesto non \u00E8 previsto da questa applicazione");
 		} catch (ClassNotFoundException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (InstantiationException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (IllegalAccessException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (PropertyException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (ConvertXslException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (JAXBException e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		} catch (Exception e) {
-			log.error(e);
+			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void showHome(HttpServletRequest request, HttpServletResponse response, String className) 
+			throws PropertyException, ClassNotFoundException, InstantiationException, IllegalAccessException,
+					ServletException, IOException, ConvertXslException, JAXBException, Exception{
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+		mx.imageViewer.schema.gestionepagina.ImageViewer imgViewer = null;
+		String fileXsl = "";
+		ImageViewerXsd imageViewerXsd = null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+
+			imgViewer = imageViewer.initPage(request, response, request.getServerName());
+
+			if (imageViewer.isShowOpere()){
+				showCatalogo(request, response, className);
+			} else if (imgViewer != null) {
+				response.setContentType("text/html; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+
+				fileXsl = imageViewer.getFoglioXsl(request.getServerName());
+				imageViewerXsd = new ImageViewerXsd();
+				ConverterXsl
+						.convertXsl(
+								fileXsl,
+								imageViewerXsd.writeInputStream(imgViewer, new ImageViewerNamespacePrefixMapper()),
+								response.getOutputStream());
+			} else{
+				throw new ServletException(
+						"Non risulta essere presente le informazioni necessarie per la creazione della pagina principale");
+			}
+		} catch (PropertyException e) {
+			throw e;
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (ConvertXslException e) {
+			throw e;
+		} catch (JAXBException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void bookReader(HttpServletRequest request, HttpServletResponse response, String className)
+			throws  ClassNotFoundException, InstantiationException, IllegalAccessException,
+			ServletException, IOException, XsdException {
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+		ReadBook readBook = null;
+		ReadBookXsd readBookXsd = null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+
+			imageViewer.initPage(request, response, request.getServerName());
+
+			readBook = imageViewer.readBook(request, response);
+
+			if (readBook != null) {
+				response.setContentType("text/xml; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				readBookXsd = new ReadBookXsd();
+				readBookXsd.write(readBook, response.getOutputStream(), 
+						new ImageViewerNamespacePrefixMapper(), null, 
+						null, null);
+			} else{
+				throw new ServletException(
+						"Non risulta essere presente le informazioni del libro");
+			}
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (XsdException e) {
+			throw e;
+		}
+
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void readCatalogo(HttpServletRequest request, HttpServletResponse response, String className)
+			throws  ClassNotFoundException, InstantiationException, IllegalAccessException,
+			ServletException, IOException, XsdException {
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+		OperaXsd operaXsd = null;
+		Opera opera= null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+
+			opera = imageViewer.readCatalogo(request, response);
+
+			if (opera != null) {
+				response.setContentType("text/xml; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				operaXsd = new OperaXsd();
+				operaXsd.write(opera, response.getOutputStream(), null, 
+						null, null, null);
+			} else {
+				throw new ServletException(
+						"Non risulta essere presente le informazioni del libro");
+			}
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (XsdException e) {
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void showCatalogo(HttpServletRequest request, HttpServletResponse response, String className)
+			throws PropertyException, ClassNotFoundException, InstantiationException, IllegalAccessException,
+			ServletException, IOException, XsdException, ConvertXslException, JAXBException, Exception{
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+		mx.imageViewer.schema.gestionepagina.ImageViewer imgViewer = null;
+		String fileXsl = "";
+		ImageViewerXsd imageViewerXsd = null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+			imgViewer = imageViewer.showCatalogo(request, response);
+
+			if (imgViewer != null) {
+				response.setContentType("text/html; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+
+				imageViewerXsd = new ImageViewerXsd();
+				log.debug(imageViewerXsd.write(imgViewer, null, null, null, null));
+				fileXsl = imageViewer.getFoglioXsl(request.getServerName());
+				ConverterXsl
+						.convertXsl(
+								fileXsl,
+								imageViewerXsd.writeInputStream(imgViewer, 
+										new ImageViewerNamespacePrefixMapper()),
+								response.getOutputStream());
+			} else{
+				throw new ServletException(
+						"Non risulta essere presente le informazioni del libro");
+			}
+		} catch (PropertyException e) {
+			throw e;
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (XsdException e) {
+			throw e;
+		} catch (ConvertXslException e) {
+			throw e;
+		} catch (JAXBException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void readStru(HttpServletRequest request, HttpServletResponse response, String className)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+			ServletException, IOException, XsdException{
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+		Opera opera= null;
+		OperaXsd operaXsd = null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+			opera = imageViewer.readStru(request, response);
+
+			if (opera != null) {
+				response.setContentType("text/xml; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				operaXsd = new OperaXsd();
+				operaXsd.write(opera, response.getOutputStream(), null, null, null, null);
+			} else{
+				throw new ServletException(
+						"Non risulta essere presente le informazioni del libro");
+			}
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (XsdException e) {
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void showImg(HttpServletRequest request, HttpServletResponse response, String className)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+			ServletException, IOException{
+		IImageViewer imageViewer = null;
+		Class myClass = null;
+
+		try {
+			myClass = Class.forName(className);
+			imageViewer = (IImageViewer) myClass.newInstance();
+			imageViewer.showImage(request, response);
+		} catch (ClassNotFoundException e) {
+			throw e;
+		} catch (InstantiationException e) {
+			throw e;
+		} catch (IllegalAccessException e) {
+			throw e;
+		} catch (ServletException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		}
+		
 	}
 }

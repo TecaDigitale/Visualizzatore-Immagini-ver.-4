@@ -3,6 +3,21 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/ImageViewer" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="ImageViewerImplement-4.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Teca Digitale/Visualizzatore Immagini ver. 4.0 Teca Digitale">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Configuration-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Configurazioni/Gestione Configurazioni">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ConnectionDatabase-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Gestione Connessioni DataBase/Gestione Connessioni DataBase">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ImageViewerImager-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Gestore Immagini/Visualizzatore Immagini ver. 4.0 Gestore Immagini">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ImageViewerInterface-4.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Visualizzatore Immagini ver. 4.0 Interfaccie/Visualizzatore Immagini ver. 4.0 Interfaccie">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/Visualizzatore Immagini ver. 4.0 Dynamic/build/classes"/>
         <property name="context-root" value="ImageViewerServlet"/>
     </wb-module>

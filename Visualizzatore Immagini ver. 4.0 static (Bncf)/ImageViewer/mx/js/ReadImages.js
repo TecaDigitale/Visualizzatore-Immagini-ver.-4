@@ -97,9 +97,17 @@ function showBook(responseXML, tipoRis)
     
       // Viene utilizzato per indicare la pagina da visualizzare
       //			br.setTitleLeaf(11);
-    
+   
+
+br.cleanupMetadata();
+if (br.olAuth) {
+    var olAuth = new OLAuth();
+    olAuth.init();
+} else {
       // Visualizzazione del visualizzatore
-      br.initImg(1);
+      br.initImg(2);
+//    alert("10");
+} 
     }
     else
     {
@@ -133,6 +141,59 @@ function toggle_sidebar() {
 	return false;
 }
 
+function toggle_sidebarStru() {
+	
+//	if($('.sidecolStru').css('left') == "0px") {
+//	
+//		$('.sidecolStru').animate({"left": "-304px"}, {
+//			duration: "slow",
+//			complete: function() {
+//		
+//		      $(this).css('box-shadow', 'none');
+//			}
+//	    });	
+//		
+//	} else {
+//		
+//		$('.sidecolStru').css('box-shadow', '-1px 0 0px #888');
+//		$('.sidecolStru').animate({"left": "0px"}, "slow");
+//	}
+	
+	return false;
+}
+
+function changePage(page){
+	var url = '';
+	var newUrl = '';
+
+	url =location.href;
+
+	pos = url.indexOf('#');
+    if (pos >-1){
+        newUrl = url.substring(0,pos+1);
+        url = url.substring(pos+1);
+    }
+
+    pos = url.indexOf('/');
+    if (pos >-1){
+        newUrl += url.substring(0,pos+1);
+        url = url.substring(pos+1);
+    }
+
+    if (url.indexOf('/1up')> -1){
+      newUrl += (page+1);
+    } else {
+      newUrl += page;
+    }
+    pos = url.indexOf('/');
+    if (pos >-1){
+        url = url.substring(pos);
+    }
+    newUrl += url;
+    toggle_sidebarStru();
+	location.href=newUrl;
+	document.getElementById('wait').style.display='none';
+}
 
 function BRnavTop(scrollTop, clientHeight, offsetHeight){
 
@@ -143,7 +204,6 @@ function BRnavTop(scrollTop, clientHeight, offsetHeight){
 }
 
 function BRContainerHeight(scrollTop, clientHeight, offsetHeight){
-  ris = scrollTop + clientHeight-130;
+  ris = scrollTop + clientHeight-200;
   return ris;
 }
-

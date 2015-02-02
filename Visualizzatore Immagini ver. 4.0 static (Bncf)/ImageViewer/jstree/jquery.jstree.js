@@ -1807,8 +1807,13 @@
 					$.each(js.data, function (i, m) {
 						tmp = $("<a />");
 						if($.isFunction(m)) { m = m.call(this, js); }
-						if(typeof m == "string") { tmp.attr('href','#')[ t ? "html" : "text" ](m); }
-						else {
+						if(typeof m == "string") { 
+							if (m=="ns1:opera"){
+								//m="verbale";
+								m=" ";
+							}
+							tmp.attr('href','#')[ t ? "html" : "text" ](m); 
+                        } else {
 							if(!m.attr) { m.attr = {}; }
 							if(!m.attr.href) { m.attr.href = '#'; }
 							tmp.attr(m.attr)[ t ? "html" : "text" ](m.title);

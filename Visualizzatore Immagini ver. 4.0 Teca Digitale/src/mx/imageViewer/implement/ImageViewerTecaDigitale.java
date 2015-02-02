@@ -68,7 +68,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 	 * @see mx.imageviewer.servlet.interfacie.IImageViewer#initPage(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	public ImageViewer initPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	public ImageViewer initPage(HttpServletRequest request, HttpServletResponse response, String serverName) throws ServletException, IOException
 	{
 		ImageViewer imageViewer = null;
 		String idr = "";
@@ -77,8 +77,8 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		{
 			log.debug("initPage");
 			imageViewer = new ImageViewer();
-			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.0");
-			isCollezione(request.getParameter("idr"), imageViewer);
+			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.1");
+			isCollezione(request.getParameter("idr"), imageViewer, serverName);
 			isStru(request.getParameter("idr"), imageViewer);
 
 			if (request.getParameter("idr")!= null){
@@ -292,13 +292,13 @@ public class ImageViewerTecaDigitale extends IImageViewer
 	}
 
 	/**
-	 * Metodo utilizzato per ricavare se l'opera in oggetto �� corrispondente ad una collezione
+	 * Metodo utilizzato per ricavare se l'opera in oggetto è corrispondente ad una collezione
 	 * 
 	 * @param ris
 	 * @return
 	 * @throws ImageViewerException 
 	 */
-	private void isCollezione(String risIdr, ImageViewer imageViewer) throws ImageViewerException{
+	private void isCollezione(String risIdr, ImageViewer imageViewer, String serverName) throws ImageViewerException{
 		ConnectionPool cp = null;
 		Tblris tblRis = null;
 		TblRelRis tblRelRis = null;
@@ -313,20 +313,28 @@ public class ImageViewerTecaDigitale extends IImageViewer
 			rs = tblRis.startSelect();
 			if (rs.next()){
 				if (rs.getString("rislivello").equals("C")){
-					show = new ShowNavigatore();
-					show.setValue(true);
-					show.setIdr(risIdr);
-					imageViewer.setShowNavigatore(show);
-				}else if (rs.getString("rislivello").equals("S")){
-					tblRelRis = new TblRelRis(cp);
-					tblRelRis.setCampoValue("relRisidrPartenza", risIdr);
-					tblRelRis.setCampoValue("tipoRelId", 2);
-					rs2 = tblRelRis.startSelect();
-					if (rs2.next()){
+					if (((String) Configuration.get("imageViewer." + serverName + ".externalVolumi",
+							     Configuration.get("imageViewer.ALL.externalVolumi", "false"))).equalsIgnoreCase("flase")){
 						show = new ShowNavigatore();
 						show.setValue(true);
-						show.setIdr(rs2.getString("relRisidrArrivo"));
+						show.setIdr(risIdr);
 						imageViewer.setShowNavigatore(show);
+					} else {
+						showOpere = true;
+					}
+				}else if (rs.getString("rislivello").equals("S")){
+					if (((String) Configuration.get("imageViewer." + serverName + ".externalVolumi",
+						     Configuration.get("imageViewer.ALL.externalVolumi", "false"))).equalsIgnoreCase("flase")){
+						tblRelRis = new TblRelRis(cp);
+						tblRelRis.setCampoValue("relRisidrPartenza", risIdr);
+						tblRelRis.setCampoValue("tipoRelId", 2);
+						rs2 = tblRelRis.startSelect();
+						if (rs2.next()){
+							show = new ShowNavigatore();
+							show.setValue(true);
+							show.setIdr(rs2.getString("relRisidrArrivo"));
+							imageViewer.setShowNavigatore(show);
+						}
 					}
 				}
 			}else{
@@ -591,7 +599,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 			showOpere=true;
 			log.debug("initPage");
 			imageViewer = new ImageViewer();
-			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.0");
+			imageViewer.setTitolo("Visualizzatore Immagini TecaDigitale ver. 4.1.0");
 
 			if (request.getParameter("idr")!= null){
 				idr = getBookIdr(request.getParameter("idr"));

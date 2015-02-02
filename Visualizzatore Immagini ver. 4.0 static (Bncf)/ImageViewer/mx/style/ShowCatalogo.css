@@ -1,0 +1,17 @@
+div#columns{
+    overflow: auto;
+    position: fixed;
+    resize: none;
+    top: 88px;
+    right: 10px;
+    background-color: #9A9B9D;
+}
+
+h1{
+    text-align:center
+}
+
+table.showDocumenti{
+    font-size: 12px;
+    margin: auto;
+}

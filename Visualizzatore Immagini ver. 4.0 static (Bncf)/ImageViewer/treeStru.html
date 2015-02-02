@@ -1,0 +1,56 @@
+<html>
+  <head>
+    
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="content-language" content="it-IT"/>
+    <meta http-equiv="expires" content="Mon, 22 Jul 2002 11:12:01 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta name="robots" content="none"/>
+    <meta name="googlebot" content="noarchive"/>
+    <link type="text/css" href="./jstree/example_01.css" rel="Stylesheet" />
+    <link type="text/css" href="./mx/style/ReadImages.css" rel="Stylesheet" />
+    <link type="text/css" href="./mx/style/ReadTreeStru.css" rel="Stylesheet" />
+    <script type="text/javascript" src="./jstree/_lib/jquery.js"></script>
+    <script type="text/javascript" src="./jstree/_lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="./jstree/_lib/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="./jstree/jquery.jstree.js"></script>
+    <script type="text/javascript" src="./jstree/UIMTreeProcessor.js"></script>
+    <script type="text/javascript" src="./jstree/_docs/syntax/!script.js"></script>
+  
+    <script type="text/javascript">
+
+    var _uimTree = null;
+    
+    $(function () {
+      getTopContent();
+    });
+    
+    getTopContent = function(){
+      $.ajax({
+        type: "GET",
+        url: parent._urlStru,
+        dataType:"xml",
+        cache: false,
+        beforeSend:function(){
+          //do something before send
+        },
+        success: function(data){
+          processXML(data);
+        },
+        error:function(e){
+          alert("URL: "+parent._url+"\nError: "+e);
+        }
+      });
+    }    
+      
+    processXML = function(root){
+      _uimTree = new UIMTreeProcessor(root, $("#jstree"));
+      _uimTree.doProcess();
+    }
+    
+    </script>
+  </head>
+  <body>
+    <div id="jstree" style="height:100%; width:100%; overflow-y:auto;" class="ui-corner-all ui-widget-content"></div>
+  </body>
+</html>
