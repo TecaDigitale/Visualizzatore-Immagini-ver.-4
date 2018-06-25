@@ -186,7 +186,7 @@ public class ImageViewer extends HttpServlet implements Servlet {
 			throw new ServletException(e.getMessage());
 		} catch (ConvertXslException e) {
 			log.error(e.getMessage(),e);
-			throw new ServletException(e.getMessage());
+			throw new ServletException(e.getMessage(),e);
 		} catch (JAXBException e) {
 			log.error(e.getMessage(),e);
 			throw new ServletException(e.getMessage());

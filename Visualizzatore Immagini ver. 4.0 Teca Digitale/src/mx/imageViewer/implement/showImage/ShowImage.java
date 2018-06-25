@@ -61,7 +61,7 @@ public class ShowImage
 				usage = (String)Configuration.get("imageViewer."+request.getServerName()+".usageImageDefault", 
 						Configuration.get("imageViewer.ALL.usageImageDefault", "3"));
 			view.setCampoValue("risIdr", risIdr);
-			System.out.println("risIdr: "+risIdr);
+//			System.out.println("risIdr: "+risIdr);
 			rs = view.startSelect();
 			while(rs.next()){
 				if (checkIp(rs.getString("imgUsage"), request) ||

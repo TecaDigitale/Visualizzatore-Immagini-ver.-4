@@ -14,6 +14,8 @@ public class ImageViewerNamespacePrefixMapper extends NamespacePrefixMapper
       return "mx-libro";
     else if (namespaceUri.equals("http://www.imageViewer.mx/schema/gestioneOpera")) 
         return "mx-opera";
+    else if (namespaceUri.equals("http://www.w3.org/2001/XMLSchema")) 
+        return null;
     else
     {
     	if (suggestion == null && !namespaceUri.equals(""))

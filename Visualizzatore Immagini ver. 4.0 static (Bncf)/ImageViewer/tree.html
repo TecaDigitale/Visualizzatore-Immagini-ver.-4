@@ -17,35 +17,35 @@
 	
 		<script type="text/javascript">
 
-		var _uimTree = null;
-		
-		$(function () {
-			getTopContent();
-		});
-		
-		getTopContent = function(){
-			$.ajax({
-				type: "GET",
-				url: parent._url,
-				dataType:"xml",
-				cache: false,
-				beforeSend:function(){
-					//do something before send
-				},
-				success: function(data){
-					processXML(data);
-				},
-				error:function(e){
-					alert("URL:"+parent._url+"\nErrorxxxxx: "+e);
-				}
-			});
-		}		
-			
-		processXML = function(root){
-			_uimTree = new UIMTreeProcessor(root, $("#jstree"));
-			_uimTree.doProcess();
-		}
-		</script>
+    var _uimTree = null;
+    
+    $(function () {
+      getTopContent();
+    });
+    
+    getTopContent = function(){
+      $.ajax({
+        type: "GET",
+        url: parent._url,
+        dataType:"xml",
+        cache: false,
+        beforeSend:function(){
+          //do something before send
+        },
+        success: function(data){
+          processXML(data);
+        },
+        error:function(e){
+          alert("URL: "+parent._url+"\nError: "+e);
+        }
+      });
+    }    
+      
+    processXML = function(root){
+      _uimTree = new UIMTreeProcessor(root, $("#jstree"));
+      _uimTree.doProcess();
+    }
+    </script>
 	</head>
 	<body style="background:#FFFFEE;">
 		<div id="jstree" style="height:100%; width:100%; overflow-y:auto;" class="ui-corner-all ui-widget-content"></div>

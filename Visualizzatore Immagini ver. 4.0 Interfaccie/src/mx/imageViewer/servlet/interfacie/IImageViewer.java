@@ -104,6 +104,7 @@ public abstract class IImageViewer {
 	 * @param serverName
 	 *            Nome del server Name
 	 * @return
+	 * @throws ConfigurationException 
 	 */
 	public String getFoglioXsl(String serverName) {
 		String fileXsl = "";

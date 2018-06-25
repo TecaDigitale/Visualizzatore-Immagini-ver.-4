@@ -7,8 +7,8 @@ div#BRtoolbar
 }
 
 div#BRcontainer{
-  top: 25px;
-  height: expression(BRContainerHeight(documentElement.scrollTop,document.getElementsByTagName('body')[0].clientHeight,this.offsetHeight));
+  top: 2px;
+    height: expression(BRContainerHeight(documentElement.scrollTop,document.getElementsByTagName('body')[0].clientHeight,this.offsetHeight));
 }
 
 div#BRnav{
@@ -21,4 +21,3 @@ div#BRpage{
 div#BRnavpos{
   width: auto;
 }
-

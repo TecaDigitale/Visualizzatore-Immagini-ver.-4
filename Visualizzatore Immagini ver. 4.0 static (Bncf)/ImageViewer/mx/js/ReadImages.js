@@ -143,21 +143,21 @@ function toggle_sidebar() {
 
 function toggle_sidebarStru() {
 	
-//	if($('.sidecolStru').css('left') == "0px") {
-//	
-//		$('.sidecolStru').animate({"left": "-304px"}, {
-//			duration: "slow",
-//			complete: function() {
-//		
-//		      $(this).css('box-shadow', 'none');
-//			}
-//	    });	
-//		
-//	} else {
-//		
-//		$('.sidecolStru').css('box-shadow', '-1px 0 0px #888');
-//		$('.sidecolStru').animate({"left": "0px"}, "slow");
-//	}
+	if($('.sidecolStru').css('left') == "0px") {
+	
+		$('.sidecolStru').animate({"left": "-304px"}, {
+			duration: "slow",
+			complete: function() {
+		
+		      $(this).css('box-shadow', 'none');
+			}
+	    });	
+		
+	} else {
+		
+		$('.sidecolStru').css('box-shadow', '-1px 0 0px #888');
+		$('.sidecolStru').animate({"left": "0px"}, "slow");
+	}
 	
 	return false;
 }

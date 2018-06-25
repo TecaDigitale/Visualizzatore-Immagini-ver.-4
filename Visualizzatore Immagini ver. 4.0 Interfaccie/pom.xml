@@ -2,22 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.sbn.firenze.bncf.tecaDigitale.imageViewer.interface</groupId>
-	<version>4.1.0</version>
+	<version>4.1.2</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>
-			it.sbn.firenze.bncf.tecaDigitale.configuration
-			</groupId>
-			<artifactId>
-			Configuration
-			</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
@@ -114,7 +105,12 @@
 		<dependency>
 			<groupId>mx.randalf.xsd</groupId>
 			<artifactId>RandalfXsd</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>it.sbn.firenze.bncf.tecaDigitale.configuration</groupId>
+			<artifactId>Configuration</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 	<build>

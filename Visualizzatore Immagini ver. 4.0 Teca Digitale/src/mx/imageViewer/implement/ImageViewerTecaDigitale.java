@@ -482,10 +482,21 @@ public class ImageViewerTecaDigitale extends IImageViewer
 		Opera opera = null;
 		Libro libro = null;
 		Libro gruppo = null;
+		int iGruppo = 0;
+		Libro mesi = null;
+		int iMesi = 0;
 		Volume dettaglio = null;
 		String titolo = "";
-
+		boolean splitMese =false;
+		String piecedt = null;
+		String mese = null;
+		
 		try {
+			splitMese =((String) Configuration.get(
+					"imageViewer." + request.getServerName()
+							+ ".splitMese",
+					Configuration.get("imageViewer.ALL"
+							+ ".splitMese", "false"))).equalsIgnoreCase("true");
 			cp = Configuration.getPool("teca");
 			msp = cp.getConn();
 			rs = msp.StartSelect("SELECT TBLLEGNOT.tmpautore, " +
@@ -532,28 +543,81 @@ public class ImageViewerTecaDigitale extends IImageViewer
 					}
 					libro.setTitolo(titolo);
 					gruppo = null;
+					mesi = null;
+					iMesi = 0;
 				}
 				
 				if (gruppo == null){
 					gruppo = new Libro();
 					gruppo.setTitolo(rs.getString("piecegr"));
+					iGruppo++;
+					gruppo.setGenere("item-"+iGruppo);
+					mesi = null;
+					iMesi = 0;
 				} else if (!gruppo.getTitolo().equals(rs.getString("piecegr"))) {
+					if (mesi!= null){
+						gruppo.getLibro().add(mesi);
+					}
 					libro.getLibro().add(gruppo);
 					gruppo = new Libro();
 					gruppo.setTitolo(rs.getString("piecegr"));
+					iGruppo++;
+					gruppo.setGenere("item-"+iGruppo);
+					mesi = null;
+					iMesi = 0;
 				}
 				
-				dettaglio = new Volume();
-				dettaglio.setValue(rs.getString("piecedt"));
-				if (initBook){
-					dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
-				}else{
-					dettaglio.setHref(rs.getString("risidr"));
+				if (splitMese){
+					piecedt = rs.getString("piecedt");
+					if (piecedt.indexOf(" ")>-1){
+						mese = piecedt.substring(0, piecedt.indexOf(" "));
+						piecedt = piecedt.substring(piecedt.indexOf(" ")).trim();
+						if (mesi == null){
+							mesi = new Libro();
+							mesi.setTitolo(mese);
+							iMesi++;
+							mesi.setGenere("item-"+iGruppo+"-"+iMesi);
+						} else if (!mesi.getTitolo().equals(mese)) {
+							gruppo.getLibro().add(mesi);
+							mesi = new Libro();
+							mesi.setTitolo(mese);
+							iMesi++;
+							mesi.setGenere("item-"+iGruppo+"-"+iMesi);
+						}
+						dettaglio = new Volume();
+						dettaglio.setValue(piecedt);
+						if (initBook){
+							dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
+						}else{
+							dettaglio.setHref(rs.getString("risidr"));
+						}
+						mesi.getVolume().add(dettaglio);
+					} else {
+						dettaglio = new Volume();
+						dettaglio.setValue(rs.getString("piecedt"));
+						if (initBook){
+							dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
+						}else{
+							dettaglio.setHref(rs.getString("risidr"));
+						}
+						gruppo.getVolume().add(dettaglio);
+					}
+				} else {
+					dettaglio = new Volume();
+					dettaglio.setValue(rs.getString("piecedt"));
+					if (initBook){
+						dettaglio.setHref("javascript:parent.initBook('"+rs.getString("risidr")+"');");
+					}else{
+						dettaglio.setHref(rs.getString("risidr"));
+					}
+					gruppo.getVolume().add(dettaglio);
 				}
-				gruppo.getVolume().add(dettaglio);
 			}
 			if (libro != null){
 				if (gruppo != null) {
+					if (mesi!= null){
+						gruppo.getLibro().add(mesi);
+					}
 					libro.getLibro().add(gruppo);
 				}
 				opera.getLibro().add(libro);
@@ -605,7 +669,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 				idr = getBookIdr(request.getParameter("idr"));
 				imageViewer.setIdr(idr);
 			}
-			opera = readCatalogo(request, response, false);
+			opera = readCatalogo(request, response, false );
 			for (Libro libro : opera.getLibro()){
 				imageViewer.getLibro().add(libro);
 			}

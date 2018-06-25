@@ -1,6 +1,6 @@
 body
 {
-	background-color: #FFFFFF;
+	background-color: #FFFFEA;
 	margin: 0px;
 	padding: 0px;
 	height: 100%;
@@ -19,15 +19,15 @@ div#wait
 
 div#BookReader
 {
-     left:4px;
-     right:4px;
-     top:43px;
+     left:10px;
+     right:10px;
+     top:69px;
      bottom:30px;
 }
 
 #BRtoolbar
 {
-  background-color: #ac1e28;
+  background-color: #575757;
   top: -40px;
 }
 
@@ -62,8 +62,8 @@ div#BookReader
 }
 
 a.logo {
-	    background: url("http://opac.bncf.firenze.sbn.it/opac/img/logo-bncf.jpg") no-repeat scroll 0 0 / 81px auto transparent;
-	    width: 82px;
+ background: url("http://www.regione.toscana.it/Toscana-theme/images/custom/logo_footer.png") repeat scroll 0 0 / 105px auto rgba(255, 255, 255, 1);
+    width: 106px;
 }
 
 a.popOff {
@@ -159,7 +159,7 @@ div.headerOld
 	float: left;
 	min-height: 59px;
 	width: 100%;
-#	height: auto !important;
+	height: auto !important;
 	height: 59px;
 }
 
@@ -176,21 +176,20 @@ table.footer td {
     text-align: center;
 }
 
-div.logo {
-    clear: both;
-    height: 58px;
-    margin: 3px auto auto 5px;
-}
-div.logo img {
-    height: 50px;
+div.logo{
+    float: left;
+    padding-left: 0.5em;
 }
 
 div.head_text2{
-    visibility: hidden;
+    float: left;
 }
 
 div.logoHeader{
-    visibility: hidden;
+    float: left;
+    font-size: 16px;
+    padding-left: 100px;
+    padding-top: 16px;
 }
 
 img.iconBook{
@@ -219,9 +218,7 @@ img.iconBook{
   z-index:1000;
   height: 100%;
   border-left: 1px solid #545454;
-  #box-shadow: -1px 0 1px #888;
-  box-shadow: -1px 0 0 #888;
-  left: 0;
+  box-shadow: -1px 0 1px #888;
 }
 
 .box 

@@ -118,9 +118,9 @@ var BrowserDetect = {
 };
 BrowserDetect.init();
 
-if (BrowserDetect.browser=='Firefox' ||
-    (BrowserDetect.browser=='Explorer' && 
-(BrowserDetect.version==8 || BrowserDetect.version==7))){
+if (BrowserDetect.browser=='Firefox' || 
+    (BrowserDetect.browser=='Explorer' &&
+     (BrowserDetect.version=='8'||BrowserDetect.version=='7'))){
   prefixXml="mx-libro:";
 }else{
   prefixXml="";
