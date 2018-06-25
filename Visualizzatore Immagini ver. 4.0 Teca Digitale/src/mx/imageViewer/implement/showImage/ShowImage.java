@@ -121,8 +121,12 @@ public class ShowImage
 		{
 			errorImage(request,response);
 //			throw new ServletException(e);
-		}
-		finally
+		}catch (Exception e)
+		{
+			log.error(e.getMessage(), e);
+			errorImage(request,response);
+//			throw new ServletException(e);
+		}		finally
 		{
 			try
 			{

@@ -50,6 +50,8 @@ public class ImageManagerTest
 		catch (ImageException e)
 		{
 			log.error("Eccezione dell'immagine",e);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
 		}
 	}
 }

@@ -53,18 +53,24 @@ public class ImageManager
 	 * 
 	 * @param url
 	 * @param isJpeg2000
+	 * @throws Exception 
 	 */
-	public void initialize(URL url, boolean isJpeg2000)
+	public void initialize(URL url, boolean isJpeg2000) throws Exception
 	{
 		GregorianCalendar gcStart = null;
 		GregorianCalendar gcStop = null;
 
-		this.url = url;
-
-		gcStart = new GregorianCalendar();
-		sourceImageJAI = JAI.create((isJpeg2000?IVConfiguration.IMAGE_READER:IVConfiguration.URL), url);
-		gcStop  = new GregorianCalendar();
-		log.info("initialize URL: "+this.url.getFile()+" t.: "+(gcStop.getTimeInMillis()-gcStart.getTimeInMillis()));
+		try {
+			this.url = url;
+	
+			gcStart = new GregorianCalendar();
+			sourceImageJAI = JAI.create((isJpeg2000?IVConfiguration.IMAGE_READER:IVConfiguration.URL), url);
+			gcStop  = new GregorianCalendar();
+			log.info("initialize URL: "+this.url.getFile()+" t.: "+(gcStop.getTimeInMillis()-gcStart.getTimeInMillis()));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw e;
+		}
 	}
 
 	/*
