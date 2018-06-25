@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.sbn.firenze.bncf.tecaDigitale.imageViewer.implement</groupId>
-  <version>4.1.4</version>
+  <version>4.1.5</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -122,7 +122,7 @@
   	<artifactId>
   	ImageViewerImager
   	</artifactId>
-  	<version>1.0.1</version>
+  	<version>4.1.1</version>
   </dependency>
   <dependency>
   	<groupId>

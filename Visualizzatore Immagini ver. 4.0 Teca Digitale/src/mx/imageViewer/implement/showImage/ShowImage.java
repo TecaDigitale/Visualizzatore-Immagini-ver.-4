@@ -168,6 +168,9 @@ public class ShowImage
 		} catch (IOException e) {
 			log.error(e);
 			throw new ServletException(e);
+		} catch (Exception e) {
+			log.error(e);
+			throw new ServletException(e);
 		}
 	}
 	private static  boolean checkIp(String usage, HttpServletRequest request){
