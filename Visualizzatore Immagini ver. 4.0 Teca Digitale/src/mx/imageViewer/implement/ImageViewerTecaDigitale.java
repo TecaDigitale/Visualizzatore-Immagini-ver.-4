@@ -120,7 +120,7 @@ public class ImageViewerTecaDigitale extends IImageViewer
 				pagina = new Pagina();
 
 				pagina.setUrlPage((String)Configuration.get("bncf.xlimage.urlPage", "http://opac.bncf.firenze.sbn.it/php/xlimage/XLImageRV.php?&amp;xsize=500&amp;image=")+
-						rs.getString("imgPathName"));
+						rs.getString("imgPathName").replace("./STORAGE01/d2/bu/", "./"));
 				pagina.setLink((String) Configuration.get("bncf.xlimage.link","javascript:changeImg")+"('"+xlimage.getPagina().size()+"')");
 				pagina.setKey("IMG."+xlimage.getPagina().size());
 				pagina.setKeyPadre("IMG");
